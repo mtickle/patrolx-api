@@ -1,6 +1,0 @@
-
-'' log into mongoshell
-./mongosh "mongodb+srv://dbuser:1m7tHdWGLjkKnle6@cluster0.iry37qv.mongodb.net/public-safety"
-
-''create the index
-db.incidents.createIndex({crimeCode: 1, crimeDescription: 1 , cityOfIncident: 1 , district: 1, incidentID: 1, caseNumber: 1, crimeType: 1 , reportedBlockAddress: 1, reportedDate: 1, reportedYear: 1, reportedMonth:1, reportedDay: 1, reportedHour: 1, reportedDayOfWeek: 1 , latitude: 1, longitude: 1, updatedDate: 1}, { unique: true } )

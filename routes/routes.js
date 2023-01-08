@@ -1,14 +1,20 @@
 const express = require("express");
-const Model = require("../models/model");
+const incidentsModel = require("../models/incidents");
+const callsModel = require("../models/calls")
 const router = express.Router();
 
+
+//---------------------------------------------------------------------
+//--- INCIDENT ROUTING
+//---------------------------------------------------------------------
+
 //--- POST method, interpreting JSON
-router.post("/post", async (req, res) => {
+router.post("/postIncident", async (req, res) => {
   
     //--- Don't do this.
     //console.log(req)
   
-    const data = new Model({
+    const data = new incidentsModel({
     caseNumber: req.body.caseNumber,
     reportedHour: req.body.reportedHour,
     longitude: req.body.longitude,
@@ -37,7 +43,7 @@ router.post("/post", async (req, res) => {
 });
 
 //--- GETALL Method
-router.get("/getAll", async (req, res) => {
+router.get("/getAllIncidents", async (req, res) => {
 
     //--- Don't do this.
     //console.log(req)
@@ -45,7 +51,7 @@ router.get("/getAll", async (req, res) => {
     
 
   try {
-    const data = await Model.find();
+    const data = await incidentsModel.find();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -53,9 +59,9 @@ router.get("/getAll", async (req, res) => {
 });
 
 //--- GETBYID Method
-router.get("/getOne/:id", async (req, res) => {
+router.get("/getOneIncident/:id", async (req, res) => {
   try {
-    const data = await Model.findById(req.params.id);
+    const data = await incidentsModel.findById(req.params.id);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -63,13 +69,13 @@ router.get("/getOne/:id", async (req, res) => {
 });
 
 //--- UPDATE by ID Method
-router.patch("/update/:id", async (req, res) => {
+router.patch("/updateIncident/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const updatedData = req.body;
     const options = { new: true };
 
-    const result = await Model.findByIdAndUpdate(id, updatedData, options);
+    const result = await incidentsModel.findByIdAndUpdate(id, updatedData, options);
 
     res.send(result);
   } catch (error) {
@@ -78,14 +84,60 @@ router.patch("/update/:id", async (req, res) => {
 });
 
 //--- DELETE by ID Method
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/deleteIncident/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const data = await Model.findByIdAndDelete(id);
+    const data = await incidentsModel.findByIdAndDelete(id);
     res.send(`Document with ${data.name} has been deleted..`);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
+
+
+
+//---------------------------------------------------------------------
+//--- CALL ROUTING
+//---------------------------------------------------------------------
+
+
+router.post("/postCall", async (req, res) => {
+  
+  //--- Don't do this.
+  //console.log(req)
+
+  const data = new callsModel({
+  agency: req.body.agency,
+  latitude: req.body.latitude,
+  longitude: req.body.longitude,
+  incidentType: req.body.incidentType,
+  location: req.body.location,
+  callDate: req.body.callDate,
+  callTime: req.body.callTime,
+  emdCode: req.body.emdCode
+});
+
+try {
+  const dataToSave = await data.save();
+  res.status(200).json(dataToSave);
+} catch (error) {
+  res.status(400).json({ message: error.message });
+}
+});
+
+
+//--- GETALL Method
+router.get("/getAllCalls", async (req, res) => {
+  //--- Don't do this.
+  //console.log(req)
+  console.log("incoming hit")
+try {
+  const data = await callsModel.find().limit(100);
+  res.json(data);
+} catch (error) {
+  res.status(500).json({ message: error.message });
+}
+});
+
 
 module.exports = router;

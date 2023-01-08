@@ -73,4 +73,7 @@ const incidentSchema = new mongoose.Schema({
   },
 });
 
+
+
 module.exports = mongoose.model(collectionName, incidentSchema);
+
