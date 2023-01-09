@@ -10,10 +10,7 @@ const router = express.Router();
 
 //--- POST method, interpreting JSON
 router.post("/postIncident", async (req, res) => {
-  
-    //--- Don't do this.
-    //console.log(req)
-  
+
     const data = new incidentsModel({
     caseNumber: req.body.caseNumber,
     reportedHour: req.body.reportedHour,
@@ -126,5 +123,40 @@ router.get("/getAllCalls", async (req, res) => {
 }
 });
 
+//--- GETBYID Method
+router.get("/getOneCall/:id", async (req, res) => {
+  try {
+    const data = await callsModel.findById(req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+//--- UPDATE by ID Method
+router.patch("/updateCall/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+    const options = { new: true };
+
+    const result = await callsModel.findByIdAndUpdate(id, updatedData, options);
+
+    res.send(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+//--- DELETE by ID Method
+router.delete("/deleteCall/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await callsModel.findByIdAndDelete(id);
+    res.send(`Document with ${data.name} has been deleted..`);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 module.exports = router;
