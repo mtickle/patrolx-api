@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
-collectionName = "incidents"
+import mongoose, { Schema } from 'mongoose';
 
-//--- The DATASCHEMA. Thanks to MONGO, this can change.
-const incidentSchema = new mongoose.Schema({
+const incidentSchema = new Schema({
   caseNumber: {
     required: false,
     type: String,
@@ -73,7 +71,6 @@ const incidentSchema = new mongoose.Schema({
   },
 });
 
+export const incidentsModel = mongoose.model("incidents", incidentSchema);
 
-
-module.exports = mongoose.model(collectionName, incidentSchema);
 

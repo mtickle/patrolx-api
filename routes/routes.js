@@ -1,7 +1,7 @@
-const express = require("express");
-const incidentsModel = require("../models/incidents");
-const callsModel = require("../models/calls")
-const router = express.Router();
+import { Router } from "express";
+import { incidentsModel } from "../models/incidents.js";
+import { callsModel } from "../models/calls.js";
+const router = Router();
 
 
 //---------------------------------------------------------------------
@@ -42,7 +42,7 @@ router.post("/postIncident", async (req, res) => {
 //--- GETALL Method
 router.get("/getAllIncidents", async (req, res) => {
   try {
-    const data = await incidentsModel.find().limit(20);
+    const data = await find().limit(20);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -52,7 +52,7 @@ router.get("/getAllIncidents", async (req, res) => {
 //--- GETBYID Method
 router.get("/getOneIncident/:id", async (req, res) => {
   try {
-    const data = await incidentsModel.findById(req.params.id);
+    const data = await findById(req.params.id);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -66,7 +66,7 @@ router.patch("/updateIncident/:id", async (req, res) => {
     const updatedData = req.body;
     const options = { new: true };
 
-    const result = await incidentsModel.findByIdAndUpdate(id, updatedData, options);
+    const result = await findByIdAndUpdate(id, updatedData, options);
 
     res.send(result);
   } catch (error) {
@@ -78,7 +78,7 @@ router.patch("/updateIncident/:id", async (req, res) => {
 router.delete("/deleteIncident/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const data = await incidentsModel.findByIdAndDelete(id);
+    const data = await findByIdAndDelete(id);
     res.send(`Document with ${data.name} has been deleted..`);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -116,7 +116,7 @@ try {
 //--- GETALL Method
 router.get("/getAllCalls", async (req, res) => {
   try {
-  const data = await callsModel.find().limit(20);
+  const data = await _find().limit(20);
   res.json(data);
 } catch (error) {
   res.status(500).json({ message: error.message });
@@ -126,7 +126,7 @@ router.get("/getAllCalls", async (req, res) => {
 //--- GETBYID Method
 router.get("/getOneCall/:id", async (req, res) => {
   try {
-    const data = await callsModel.findById(req.params.id);
+    const data = await _findById(req.params.id);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -140,7 +140,7 @@ router.patch("/updateCall/:id", async (req, res) => {
     const updatedData = req.body;
     const options = { new: true };
 
-    const result = await callsModel.findByIdAndUpdate(id, updatedData, options);
+    const result = await _findByIdAndUpdate(id, updatedData, options);
 
     res.send(result);
   } catch (error) {
@@ -152,11 +152,11 @@ router.patch("/updateCall/:id", async (req, res) => {
 router.delete("/deleteCall/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const data = await callsModel.findByIdAndDelete(id);
+    const data = await _findByIdAndDelete(id);
     res.send(`Document with ${data.name} has been deleted..`);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-module.exports = router;
+export default router;

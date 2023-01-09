@@ -1,11 +1,7 @@
-const mongoose = require("mongoose");
-collectionName = "calls"
+import mongoose, { Schema } from 'mongoose';
 
 
-//Agency, Latitude, Longitude, Incident, Location, CallDate, CallTime, EmdCode
-
-//--- The DATASCHEMA. Thanks to MONGO, this can change.
-const callsSchema = new mongoose.Schema({
+const callsSchema = new Schema({
     agency: {
       required: false,
       type: String,
@@ -40,4 +36,4 @@ const callsSchema = new mongoose.Schema({
       }
 });
 
-module.exports = mongoose.model(collectionName, callsSchema);
+export const callsModel = mongoose.model("calls", callsSchema);

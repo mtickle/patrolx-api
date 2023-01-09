@@ -1,13 +1,19 @@
-require('dotenv').config();
-const cors = require('cors');
-const express = require('express');
-const mongoose = require('mongoose');
+//require('dotenv').config();
+import dotenv from 'dotenv'
+dotenv.config()
+import cors from 'cors';
+import express, { json } from 'express';
+//import connection from 'mongoose';
+import pkg from 'mongoose';
+const { set, connect, connection } = pkg;
+
+//import { set, connect, connection } from 'mongoose';
 const mongoString = process.env.DATABASE_URL;
 
 //--- Make the connection to ATLAS
-mongoose.set('strictQuery', true);
-mongoose.connect(mongoString);
-const database = mongoose.connection;
+set('strictQuery', true);
+connect(mongoString);
+const database = connection;
 database.on('error', function (error) {
         console.log(error);
     })
@@ -18,10 +24,10 @@ database.once('connected', () => {
 //--- Manage some things on the APP: Express and CORS
 const app = express();
 app.use(cors())
-app.use(express.json());
+app.use(json());
 
 //--- Name and implement the ROUTES
-const routes = require('./routes/routes');
+import routes from './routes/routes.js';
 app.use('/api', routes)
 
 //--- Open the SERVER
