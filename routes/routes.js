@@ -44,14 +44,8 @@ router.post("/postIncident", async (req, res) => {
 
 //--- GETALL Method
 router.get("/getAllIncidents", async (req, res) => {
-
-    //--- Don't do this.
-    //console.log(req)
-    console.log("incoming hit")
-    
-
   try {
-    const data = await incidentsModel.find();
+    const data = await incidentsModel.find().limit(20);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -102,10 +96,6 @@ router.delete("/deleteIncident/:id", async (req, res) => {
 
 
 router.post("/postCall", async (req, res) => {
-  
-  //--- Don't do this.
-  //console.log(req)
-
   const data = new callsModel({
   agency: req.body.agency,
   latitude: req.body.latitude,
@@ -128,11 +118,8 @@ try {
 
 //--- GETALL Method
 router.get("/getAllCalls", async (req, res) => {
-  //--- Don't do this.
-  //console.log(req)
-  console.log("incoming hit")
-try {
-  const data = await callsModel.find().limit(100);
+  try {
+  const data = await callsModel.find().limit(20);
   res.json(data);
 } catch (error) {
   res.status(500).json({ message: error.message });
