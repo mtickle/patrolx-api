@@ -1,13 +1,9 @@
-//require('dotenv').config();
 import dotenv from 'dotenv'
 dotenv.config()
 import cors from 'cors';
 import express, { json } from 'express';
-//import connection from 'mongoose';
 import pkg from 'mongoose';
 const { set, connect, connection } = pkg;
-
-//import { set, connect, connection } from 'mongoose';
 const mongoString = process.env.DATABASE_URL;
 
 //--- Make the connection to ATLAS
@@ -32,5 +28,5 @@ app.use('/api', routes)
 
 //--- Open the SERVER
 app.listen(3001, () => {
-    console.log(`Server Started at ${3001}`)
+    console.log(`API listening on ${3001}`)
 })

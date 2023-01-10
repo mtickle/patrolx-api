@@ -4,6 +4,7 @@ import { callsModel } from "../models/calls.js";
 const router = Router();
 
 
+
 //---------------------------------------------------------------------
 //--- INCIDENT ROUTING
 //---------------------------------------------------------------------
@@ -41,8 +42,9 @@ router.post("/postIncident", async (req, res) => {
 
 //--- GETALL Method
 router.get("/getAllIncidents", async (req, res) => {
+
   try {
-    const data = await find().limit(20);
+    const data = await incidentsModel.find().limit(20);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -116,7 +118,7 @@ try {
 //--- GETALL Method
 router.get("/getAllCalls", async (req, res) => {
   try {
-  const data = await _find().limit(20);
+  const data = await callsModel.find().limit(20);
   res.json(data);
 } catch (error) {
   res.status(500).json({ message: error.message });

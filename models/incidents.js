@@ -72,5 +72,3 @@ const incidentSchema = new Schema({
 });
 
 export const incidentsModel = mongoose.model("incidents", incidentSchema);
-
-
