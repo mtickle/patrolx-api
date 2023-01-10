@@ -25,7 +25,7 @@ app.use(json());
 //--- Name and implement the ROUTES
 import routes from './routes/routes.js';
 app.use('/api', routes)
-
+  
 //--- Open the SERVER
 app.listen(3001, () => {
     console.log(`API listening on ${3001}`)

@@ -42,9 +42,9 @@ router.post("/postIncident", async (req, res) => {
 
 //--- GETALL Method
 router.get("/getAllIncidents", async (req, res) => {
-
+console.log(req.query.limit)
   try {
-    const data = await incidentsModel.find().limit(20);
+    const data = await incidentsModel.find().limit(req.query.limit);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
