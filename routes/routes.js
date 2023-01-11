@@ -3,8 +3,6 @@ import { incidentsModel } from "../models/incidents.js";
 import { callsModel } from "../models/calls.js";
 const router = Router();
 
-
-
 //---------------------------------------------------------------------
 //--- INCIDENT ROUTING
 //---------------------------------------------------------------------
@@ -42,9 +40,12 @@ router.post("/postIncident", async (req, res) => {
 
 //--- GETALL Method
 router.get("/getAllIncidents", async (req, res) => {
-console.log(req.query.limit)
+
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10
+
   try {
-    const data = await incidentsModel.find().limit(req.query.limit);
+    const data = await incidentsModel.find().limit(recordLimit);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -117,8 +118,14 @@ try {
 
 //--- GETALL Method
 router.get("/getAllCalls", async (req, res) => {
+
+  //--- http://localhost:3001/api/getAllCalls?limit=1
+
+    //--- Get the record limit from the querystring
+    const recordLimit = req.query.limit || 10
+
   try {
-  const data = await callsModel.find().limit(20);
+  const data = await callsModel.find().limit(recordLimit);
   res.json(data);
 } catch (error) {
   res.status(500).json({ message: error.message });

@@ -5,6 +5,17 @@ import express, { json } from 'express';
 import pkg from 'mongoose';
 const { set, connect, connection } = pkg;
 const mongoString = process.env.DATABASE_URL;
+import rateLimit from 'express-rate-limit'
+
+
+//--- Rate limiting
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
 
 //--- Make the connection to ATLAS
 set('strictQuery', true);
@@ -19,8 +30,9 @@ database.once('connected', () => {
 
 //--- Manage some things on the APP: Express and CORS
 const app = express();
-app.use(cors())
+app.use(cors());
 app.use(json());
+app.use(limiter);
 
 //--- Name and implement the ROUTES
 import routes from './routes/routes.js';
