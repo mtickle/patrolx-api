@@ -6,6 +6,8 @@ import pkg from 'mongoose';
 const { set, connect, connection } = pkg;
 const mongoString = process.env.DATABASE_URL;
 import rateLimit from 'express-rate-limit'
+import helmet  from 'helmet';
+import morgan from 'morgan';
 
 
 //--- Rate limiting
@@ -33,6 +35,9 @@ const app = express();
 app.use(cors());
 app.use(json());
 app.use(limiter);
+app.use(helmet());
+app.use(morgan('combined'));
+
 
 //--- Name and implement the ROUTES
 import routes from './routes/routes.js';
