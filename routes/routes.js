@@ -2,7 +2,7 @@ import { Router } from "express";
 import { incidentsModel } from "../models/incidents.js";
 import { callsModel } from "../models/calls.js";
 const router = Router();
-import { auth }  from 'express-oauth2-jwt-bearer';
+//import { auth }  from 'express-oauth2-jwt-bearer';
 
 //---------------------------------------------------------------------
 //--- INCIDENT ROUTING
@@ -40,7 +40,7 @@ router.post("/postIncident", async (req, res) => {
 });
 
 //--- GETALL Method
-router.get("/getAllIncidents", auth, async (req, res) => {
+router.get("/getAllIncidents", async (req, res) => {
 
   //--- Get the record limit from the querystring
   const recordLimit = req.query.limit || 10
