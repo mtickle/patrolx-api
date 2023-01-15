@@ -4,9 +4,18 @@ import { callsModel } from "../models/calls.js";
 const router = Router();
 //import { auth }  from 'express-oauth2-jwt-bearer';
 
+
+
+//--- Like this?
+//router.use(pxAuth);
+
+
+
 //---------------------------------------------------------------------
 //--- INCIDENT ROUTING
 //---------------------------------------------------------------------
+
+
 
 //--- POST method, interpreting JSON
 router.post("/postIncident", async (req, res) => {
@@ -40,7 +49,7 @@ router.post("/postIncident", async (req, res) => {
 });
 
 //--- GETALL Method
-router.get("/getAllIncidents", async (req, res) => {
+router.get("/getAllIncidents",  async (req, res) => {
 
   //--- Get the record limit from the querystring
   const recordLimit = req.query.limit || 10
