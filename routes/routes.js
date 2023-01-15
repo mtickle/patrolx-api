@@ -4,18 +4,31 @@ import { callsModel } from "../models/calls.js";
 const router = Router();
 //import { auth }  from 'express-oauth2-jwt-bearer';
 
+// import { checkJwt } from "../middleware/auth.js";
 
+// //--- Like this?
+// router.use(checkJwt);
 
-//--- Like this?
-//router.use(pxAuth);
-
-
+import auth from "../middleware/auth.js";
 
 //---------------------------------------------------------------------
 //--- INCIDENT ROUTING
 //---------------------------------------------------------------------
 
+router.post("/generateToken", (req, res) => {
+  // Validate User Here
+  // Then generate JWT Token
 
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  let data = {
+      time: Date(),
+      userId: 12,
+  }
+
+  const token = jwt.sign(data, jwtSecretKey);
+
+  res.send(token);
+});
 
 //--- POST method, interpreting JSON
 router.post("/postIncident", async (req, res) => {
@@ -49,7 +62,7 @@ router.post("/postIncident", async (req, res) => {
 });
 
 //--- GETALL Method
-router.get("/getAllIncidents",  async (req, res) => {
+router.get("/getAllIncidents", auth,  async (req, res) => {
 
   //--- Get the record limit from the querystring
   const recordLimit = req.query.limit || 10
