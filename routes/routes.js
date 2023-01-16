@@ -1,34 +1,52 @@
-import { Router } from "express";
+//--- Notes
+//---- lagtIZ0xEuxI9TsyIvk7uEXyV6p3q6aH is a good API Key
+
+//--- Models
 import { incidentsModel } from "../models/incidents.js";
 import { callsModel } from "../models/calls.js";
+import { usersModel } from "../models/users.js";
+
+//--- Helpers
+import API from "../middlewares/auth.js";
+import { Router } from "express";
 const router = Router();
-//import { auth }  from 'express-oauth2-jwt-bearer';
+import randomstring from "randomstring";
 
-// import { checkJwt } from "../middleware/auth.js";
+//--- Create users?
+router.post("/postUser", async (req, res) => {
 
-// //--- Like this?
-// router.use(checkJwt);
+  const data = new usersModel({
+  username: req.body.username,
+  apiKey: randomstring.generate(),
+});
 
-import auth from "../middleware/auth.js";
+try {
+  const dataToSave = await data.save();
+  res.status(200).json(dataToSave);
+} catch (error) {
+  res.status(400).json({ message: error.message });
+}
+});
+
+
+
+//--- GETALL Method
+router.get("/getAllUsers", API.authenticateKey, async (req, res) => {
+
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10
+
+  try {
+    const data = await usersModel.find().limit(recordLimit);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 //---------------------------------------------------------------------
 //--- INCIDENT ROUTING
 //---------------------------------------------------------------------
-
-router.post("/generateToken", (req, res) => {
-  // Validate User Here
-  // Then generate JWT Token
-
-  let jwtSecretKey = process.env.JWT_SECRET_KEY;
-  let data = {
-      time: Date(),
-      userId: 12,
-  }
-
-  const token = jwt.sign(data, jwtSecretKey);
-
-  res.send(token);
-});
 
 //--- POST method, interpreting JSON
 router.post("/postIncident", async (req, res) => {
@@ -62,11 +80,10 @@ router.post("/postIncident", async (req, res) => {
 });
 
 //--- GETALL Method
-router.get("/getAllIncidents", auth,  async (req, res) => {
+router.get("/getAllIncidents",  API.authenticateKey, async (req, res) => {
 
   //--- Get the record limit from the querystring
   const recordLimit = req.query.limit || 10
-
   try {
     const data = await incidentsModel.find().limit(recordLimit);
     res.json(data);

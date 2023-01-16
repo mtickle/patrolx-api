@@ -36,7 +36,7 @@ app.use(cors());
 app.use(json());
 app.use(limiter);
 //app.use(helmet());
-app.use(morgan('combined'));
+//app.use(morgan('combined'));
 
 
 //--- Name and implement the ROUTES
