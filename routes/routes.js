@@ -1,5 +1,5 @@
 //--- Notes
-//---- lagtIZ0xEuxI9TsyIvk7uEXyV6p3q6aH is a good API Key
+//---- 9YGxIQziMuYzgMSWmYePfxRWYdeiwLKn is a good API Key
 
 //--- Models
 import { incidentsModel } from "../models/incidents.js";
@@ -12,9 +12,8 @@ import { Router } from "express";
 const router = Router();
 import randomstring from "randomstring";
 
-//--- Create users?
+//--- Create a new user and the API Key
 router.post("/postUser", async (req, res) => {
-
   const data = new usersModel({
   username: req.body.username,
   apiKey: randomstring.generate(),
@@ -28,9 +27,7 @@ try {
 }
 });
 
-
-
-//--- GETALL Method
+//--- getAllUsers Method
 router.get("/getAllUsers", API.authenticateKey, async (req, res) => {
 
   //--- Get the record limit from the querystring
@@ -43,6 +40,8 @@ router.get("/getAllUsers", API.authenticateKey, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+
 
 //---------------------------------------------------------------------
 //--- INCIDENT ROUTING
