@@ -5,6 +5,7 @@
 import { incidentsModel } from "../models/incidents.js";
 import { callsModel } from "../models/calls.js";
 import { usersModel } from "../models/users.js";
+import { arrestsModel } from "../models/arrests.js"
 
 //--- Helpers
 import auth from "../middlewares/auth.js";
@@ -205,5 +206,31 @@ router.delete("/deleteCall/:id", auth.checkKey,async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
+
+//--- Arrests
+router.post("/postArrest", auth.checkKey,async (req, res) => {
+  const data = new arrestsModel({
+  first: req.body.first,
+  last: req.body.last,
+  height: req.body.height,
+  weight: req.body.weight,
+  hair: req.body.hair,
+  eye: req.body.eye,
+  dob: req.body.dob,
+  sex: req.body.sex,
+  race: req.body.race,
+  dateArr: req.body.dateArr,
+  charge: req.body.charge
+});
+
+try {
+  const dataToSave = await data.save();
+  res.status(200).json(dataToSave);
+} catch (error) {
+  res.status(400).json({ message: error.message });
+}
+});
+
 
 export default router;
