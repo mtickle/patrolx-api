@@ -7,7 +7,7 @@ import { callsModel } from "../models/calls.js";
 import { usersModel } from "../models/users.js";
 
 //--- Helpers
-import API from "../middlewares/auth.js";
+import auth from "../middlewares/auth.js";
 import { Router } from "express";
 const router = Router();
 import randomstring from "randomstring";
@@ -28,7 +28,7 @@ try {
 });
 
 //--- getAllUsers Method
-router.get("/getAllUsers", API.authenticateKey, async (req, res) => {
+router.get("/getAllUsers", auth.checkKey, async (req, res) => {
 
   //--- Get the record limit from the querystring
   const recordLimit = req.query.limit || 10
@@ -48,7 +48,7 @@ router.get("/getAllUsers", API.authenticateKey, async (req, res) => {
 //---------------------------------------------------------------------
 
 //--- POST method, interpreting JSON
-router.post("/postIncident", async (req, res) => {
+router.post("/postIncident", auth.checkKey, async (req, res) => {
 
     const data = new incidentsModel({
     caseNumber: req.body.caseNumber,
@@ -79,7 +79,7 @@ router.post("/postIncident", async (req, res) => {
 });
 
 //--- GETALL Method
-router.get("/getAllIncidents",  API.authenticateKey, async (req, res) => {
+router.get("/getAllIncidents",  auth.checkKey, async (req, res) => {
 
   //--- Get the record limit from the querystring
   const recordLimit = req.query.limit || 10
@@ -92,7 +92,7 @@ router.get("/getAllIncidents",  API.authenticateKey, async (req, res) => {
 });
 
 //--- GETBYID Method
-router.get("/getOneIncident/:id", async (req, res) => {
+router.get("/getOneIncident/:id", auth.checkKey,async (req, res) => {
   try {
     const data = await findById(req.params.id);
     res.json(data);
@@ -102,7 +102,7 @@ router.get("/getOneIncident/:id", async (req, res) => {
 });
 
 //--- UPDATE by ID Method
-router.patch("/updateIncident/:id", async (req, res) => {
+router.patch("/updateIncident/:id", auth.checkKey,async (req, res) => {
   try {
     const id = req.params.id;
     const updatedData = req.body;
@@ -117,7 +117,7 @@ router.patch("/updateIncident/:id", async (req, res) => {
 });
 
 //--- DELETE by ID Method
-router.delete("/deleteIncident/:id", async (req, res) => {
+router.delete("/deleteIncident/:id", auth.checkKey,async (req, res) => {
   try {
     const id = req.params.id;
     const data = await findByIdAndDelete(id);
@@ -134,7 +134,7 @@ router.delete("/deleteIncident/:id", async (req, res) => {
 //---------------------------------------------------------------------
 
 
-router.post("/postCall", async (req, res) => {
+router.post("/postCall", auth.checkKey,async (req, res) => {
   const data = new callsModel({
   agency: req.body.agency,
   latitude: req.body.latitude,
@@ -154,9 +154,8 @@ try {
 }
 });
 
-
 //--- GETALL Method
-router.get("/getAllCalls", async (req, res) => {
+router.get("/getAllCalls", auth.checkKey,async (req, res) => {
 
   //--- http://localhost:3001/api/getAllCalls?limit=1
 
@@ -172,7 +171,7 @@ router.get("/getAllCalls", async (req, res) => {
 });
 
 //--- GETBYID Method
-router.get("/getOneCall/:id", async (req, res) => {
+router.get("/getOneCall/:id", auth.checkKey,async (req, res) => {
   try {
     const data = await _findById(req.params.id);
     res.json(data);
@@ -182,7 +181,7 @@ router.get("/getOneCall/:id", async (req, res) => {
 });
 
 //--- UPDATE by ID Method
-router.patch("/updateCall/:id", async (req, res) => {
+router.patch("/updateCall/:id", auth.checkKey,async (req, res) => {
   try {
     const id = req.params.id;
     const updatedData = req.body;
@@ -197,7 +196,7 @@ router.patch("/updateCall/:id", async (req, res) => {
 });
 
 //--- DELETE by ID Method
-router.delete("/deleteCall/:id", async (req, res) => {
+router.delete("/deleteCall/:id", auth.checkKey,async (req, res) => {
   try {
     const id = req.params.id;
     const data = await _findByIdAndDelete(id);

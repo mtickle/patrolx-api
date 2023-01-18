@@ -2,7 +2,7 @@
 import { usersModel } from "../models/users.js";
 
 //--- Check the API Key
-const authenticateKey = async (req, res, next) => {
+const checkKey = async (req, res, next) => {
   let inApiKey = req.headers["x-api-key"]; // Grab the key from x-api-key
 
   //--- Is there an API Key being passed in?
@@ -36,4 +36,4 @@ const authenticateKey = async (req, res, next) => {
   });
 };
 
-export default { authenticateKey };
+export default { checkKey };
