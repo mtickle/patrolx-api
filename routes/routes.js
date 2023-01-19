@@ -1,5 +1,6 @@
 //--- Notes
 //---- 9YGxIQziMuYzgMSWmYePfxRWYdeiwLKn is a good API Key
+//--- http://localhost:3001/api/getAllCalls?limit=1
 
 //--- Models
 import { incidentsModel } from "../models/incidents.js";
@@ -13,7 +14,6 @@ import { Router } from "express";
 const router = Router();
 import randomstring from "randomstring";
 
-//--- Create a new user and the API Key
 router.post("/postUser", async (req, res) => {
   const data = new usersModel({
   username: req.body.username,
@@ -28,7 +28,6 @@ try {
 }
 });
 
-//--- getAllUsers Method
 router.get("/getAllUsers", auth.checkKey, async (req, res) => {
 
   //--- Get the record limit from the querystring
@@ -42,13 +41,6 @@ router.get("/getAllUsers", auth.checkKey, async (req, res) => {
   }
 });
 
-
-
-//---------------------------------------------------------------------
-//--- INCIDENT ROUTING
-//---------------------------------------------------------------------
-
-//--- POST method, interpreting JSON
 router.post("/postIncident", auth.checkKey, async (req, res) => {
 
     const data = new incidentsModel({
@@ -79,7 +71,6 @@ router.post("/postIncident", auth.checkKey, async (req, res) => {
   }
 });
 
-//--- GETALL Method
 router.get("/getAllIncidents",  auth.checkKey, async (req, res) => {
 
   //--- Get the record limit from the querystring
@@ -92,7 +83,6 @@ router.get("/getAllIncidents",  auth.checkKey, async (req, res) => {
   }
 });
 
-//--- GETBYID Method
 router.get("/getOneIncident/:id", auth.checkKey,async (req, res) => {
   try {
     const data = await findById(req.params.id);
@@ -102,7 +92,6 @@ router.get("/getOneIncident/:id", auth.checkKey,async (req, res) => {
   }
 });
 
-//--- UPDATE by ID Method
 router.patch("/updateIncident/:id", auth.checkKey,async (req, res) => {
   try {
     const id = req.params.id;
@@ -117,7 +106,6 @@ router.patch("/updateIncident/:id", auth.checkKey,async (req, res) => {
   }
 });
 
-//--- DELETE by ID Method
 router.delete("/deleteIncident/:id", auth.checkKey,async (req, res) => {
   try {
     const id = req.params.id;
@@ -127,13 +115,6 @@ router.delete("/deleteIncident/:id", auth.checkKey,async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-
-
-
-//---------------------------------------------------------------------
-//--- CALL ROUTING
-//---------------------------------------------------------------------
-
 
 router.post("/postCall", auth.checkKey,async (req, res) => {
   const data = new callsModel({
@@ -155,10 +136,9 @@ try {
 }
 });
 
-//--- GETALL Method
 router.get("/getAllCalls", auth.checkKey,async (req, res) => {
 
-  //--- http://localhost:3001/api/getAllCalls?limit=1
+
 
     //--- Get the record limit from the querystring
     const recordLimit = req.query.limit || 10
@@ -171,7 +151,6 @@ router.get("/getAllCalls", auth.checkKey,async (req, res) => {
 }
 });
 
-//--- GETBYID Method
 router.get("/getOneCall/:id", auth.checkKey,async (req, res) => {
   try {
     const data = await _findById(req.params.id);
@@ -181,7 +160,6 @@ router.get("/getOneCall/:id", auth.checkKey,async (req, res) => {
   }
 });
 
-//--- UPDATE by ID Method
 router.patch("/updateCall/:id", auth.checkKey,async (req, res) => {
   try {
     const id = req.params.id;
@@ -196,7 +174,6 @@ router.patch("/updateCall/:id", auth.checkKey,async (req, res) => {
   }
 });
 
-//--- DELETE by ID Method
 router.delete("/deleteCall/:id", auth.checkKey,async (req, res) => {
   try {
     const id = req.params.id;
@@ -207,8 +184,18 @@ router.delete("/deleteCall/:id", auth.checkKey,async (req, res) => {
   }
 });
 
+router.get("/getAllArrests", auth.checkKey,async (req, res) => {
 
-//--- Arrests
+  const recordLimit = req.query.limit || 10
+
+try {
+const data = await arrestsModel.find().limit(recordLimit);
+res.json(data);
+} catch (error) {
+res.status(500).json({ message: error.message });
+}
+});
+
 router.post("/postArrest", auth.checkKey,async (req, res) => {
   const data = new arrestsModel({
   first: req.body.first,
@@ -231,6 +218,5 @@ try {
   res.status(400).json({ message: error.message });
 }
 });
-
 
 export default router;
