@@ -1,0 +1,36 @@
+COPY(SELECT 
+	agency  AS "agency.auto()"
+	, latitude AS "latitude.auto()"
+	, longitude AS "longitude.auto()"
+	, incident AS "incident.auto()"
+	, location AS "location.auto()"
+	, call_date AS "callDate.auto()"
+	, call_time AS "callTime.auto()"
+	, emd_code AS "emdCode.auto()"
+	FROM public.call)
+ TO '/tmp/calls.tsv' WITH (FORMAT CSV, HEADER TRUE, DELIMITER E'\t');
+
+COPY (
+SELECT id AS "legacyId.auto()"
+, crime_code AS "crimeCode.auto()"
+, crime_description AS "crimeDescription.auto()"
+, city_of_incident AS "cityOfIncident.auto()"
+, district AS "district.auto()"
+, incident_id AS "incidentId.auto()"
+, date_of_event AS "dateOfEvent.auto()"
+, case_number AS "caseNumber.auto()"
+, crime_type AS "crimeType.auto()"
+, reported_block_address AS "reportedBlockAddress.auto()"
+, reported_date AS "reportedDate.auto()"
+, reported_year AS "reportedYear.auto()"
+, reported_month AS "reportedMonth.auto()"
+, reported_day AS "reportedDay.auto()"
+, reported_hour AS "reportedHour.auto()"
+, reported_day_of_week AS "reportedDayOfWeek.auto()"
+, latitude AS "lattitude.auto()"
+, longitude AS "longitudeName.auto()"
+, updated_date AS "updatedDate.auto()"
+	FROM public.incident)
+ TO '/tmp/incident.tsv' WITH (FORMAT CSV, HEADER TRUE, DELIMITER E'\t');
+ 
+

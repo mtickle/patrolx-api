@@ -1,0 +1,4 @@
+#PatrolX Processes
+*/15 * * * * cd /home/pi/patrolx/patrolx-calls-loader && ./main > /home/pi/patrolx/patrolx-calls-loader/log.txt
+*/15 * * * * cd /home/pi/patrolx/patrolx-loader && ./main > /home/pi/patrolx/patrolx-loader/log.txt
+*/15 * * * * cd /home/pi/patrolx/patrolx-arrests-loader && ./main > /home/pi/patrolx/patrolx-arrests-loader/log.txt

@@ -1,0 +1,44 @@
+{
+    "caseNumber": "",
+    "reportedHour": "",
+    "longitude": "",
+    "reportedYear": "",
+    "reportedMonth": "",
+    "latitude": "",
+    "crimeCode": "",
+    "incidentID": "",
+    "crimeType": "",
+    "district": "",
+    "reportedDayOfWeek": "",
+    "reportedDate": "",
+    "reportedDay": "",
+    "updatedDate": "",
+    "crimeDescription": "",
+    "cityOfIncident": "",
+    "reportedBlockAddress": ""
+  }
+
+    {
+    "agency": "",
+    "latitude": "",
+    "longitude": "",
+    "incident": "",
+    "location": "",
+    "callDate": "",
+    "callTime": "",
+    "emdCode": ""
+  }
+
+   {
+    "first": 
+    "last": "",
+    "height": "",
+    "weight": "",
+    "hair": "",
+    "eye": "",
+    "dob": "",
+    "sex": "",
+    "race": "",
+    "dateArr": "2",
+    "charge": ""
+  }
