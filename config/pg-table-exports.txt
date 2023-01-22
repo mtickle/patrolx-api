@@ -27,10 +27,29 @@ SELECT id AS "legacyId.auto()"
 , reported_day AS "reportedDay.auto()"
 , reported_hour AS "reportedHour.auto()"
 , reported_day_of_week AS "reportedDayOfWeek.auto()"
-, latitude AS "lattitude.auto()"
+, latitude AS "latitude.auto()"
 , longitude AS "longitudeName.auto()"
 , updated_date AS "updatedDate.auto()"
 	FROM public.incident)
  TO '/tmp/incident.tsv' WITH (FORMAT CSV, HEADER TRUE, DELIMITER E'\t');
  
+COPY(SELECT
+	id  AS "legacyId.auto()"	 
+	, firstname  AS "firstname.auto()"
+	, lastname AS "lastname.auto()"
+	, height AS "height.auto()"
+	, weight AS "weight.auto()"
+	, hair AS "hair.auto()"
+	, eye AS "eye.auto()"
+	, dob AS "dob.auto()"
+	, sex AS "sex.auto()"
+	, race AS "race.auto()"
+	, datearr AS "datearr.auto()"
+	, charge AS "charge.auto()"		 
+	FROM public.arrest)
+ TO '/tmp/px-arrests.tsv' WITH (FORMAT CSV, HEADER TRUE, DELIMITER E'\t');
 
+ RESULTS:
+ COPY 3313
+
+Query returned successfully in 283 msec.

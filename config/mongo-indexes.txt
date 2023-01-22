@@ -1,9 +1,5 @@
-
-
-
-
 db.incidents.createIndex({crimeCode: 1, crimeDescription: 1 , cityOfIncident: 1 , district: 1, incidentID: 1, caseNumber: 1, crimeType: 1 , reportedBlockAddress: 1, reportedDate: 1, reportedYear: 1, reportedMonth:1, reportedDay: 1, reportedHour: 1, reportedDayOfWeek: 1 , latitude: 1, longitude: 1, updatedDate: 1}, { unique: true } )
-
 db.arrests.createIndex({first: 1, last: 1 , height: 1 , weight: 1, hair: 1, eye: 1, dob: 1 , sex: 1, race: 1, dateArr: 1, charge:1}, { unique: true } )
-
 db.calls.createIndex({agency: 1, latitude: 1, longitude: 1, incidentType: 1, location: 1, callDate: 1, callTime: 1, emdCode: 1}, { unique: true})
+
+

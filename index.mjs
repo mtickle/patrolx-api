@@ -2,6 +2,7 @@
 //--- Imports
 import dotenv from 'dotenv'
 import express, { json } from 'express';
+import fs from 'fs'
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit'
@@ -30,7 +31,12 @@ mongoose.connect(mongoString, function(err) {
 const app = express();  
 app.use(json());
 app.use(limiter);
-app.use(morgan('combined'));
+//app.use(morgan('combined'));
+
+//--- Logging
+app.use(morgan('common', {
+    stream: fs.createWriteStream('./access.log', {flags: 'a'})
+}));
 
 //--- Name and implement the ROUTES
 import routes from './routes/routes.js';

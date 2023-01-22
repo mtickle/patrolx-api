@@ -30,7 +30,7 @@
   }
 
    {
-    "first": 
+    "first": "",
     "last": "",
     "height": "",
     "weight": "",
@@ -39,6 +39,6 @@
     "dob": "",
     "sex": "",
     "race": "",
-    "dateArr": "2",
+    "dateArr": "",
     "charge": ""
   }
