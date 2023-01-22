@@ -1,5 +1,0 @@
-
-./mongosh "mongodb+srv://dbuser:VJSgn0qluw2E4Ned@cluster0.ihffsxu.mongodb.net/patrolx"
-
-
-mongoimport --uri mongodb+srv://dbuser:1m7tHdWGLjkKnle6@cluster0.iry37qv.mongodb.net/patrolx --collection incidents --type tsv --file e:/incidents.tsv --headerline --columnsHaveTypes
