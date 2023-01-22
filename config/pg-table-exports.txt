@@ -2,7 +2,7 @@ COPY(SELECT
 	agency  AS "agency.auto()"
 	, latitude AS "latitude.auto()"
 	, longitude AS "longitude.auto()"
-	, incident AS "incident.auto()"
+	, incident AS ".auto()"
 	, location AS "location.auto()"
 	, call_date AS "callDate.auto()"
 	, call_time AS "callTime.auto()"
