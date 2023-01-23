@@ -28,3 +28,5 @@
 ::ffff:127.0.0.1 - - [22/Jan/2023:12:12:56 +0000] "GET /api/getAllIncidents HTTP/1.1" 200 5427
 ::ffff:127.0.0.1 - - [22/Jan/2023:12:12:56 +0000] "GET /api/getAllIncidents HTTP/1.1" 200 5427
 ::ffff:127.0.0.1 - - [22/Jan/2023:12:12:57 +0000] "GET /api/getAllIncidents HTTP/1.1" 200 5427
+::ffff:127.0.0.1 - - [23/Jan/2023:11:15:02 +0000] "GET /api/getAllUsers HTTP/1.1" 200 706
+::ffff:127.0.0.1 - - [23/Jan/2023:11:15:03 +0000] "GET /api/getAllUsers HTTP/1.1" 200 706
