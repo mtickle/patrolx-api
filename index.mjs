@@ -43,6 +43,6 @@ import routes from './routes/routes.js';
 app.use('/api', routes)
   
 //--- Open the SERVER
-app.listen(3001, () => {
-    console.log(`API listening on ${3001}`)
+app.listen(8080, () => {
+    console.log(`API listening on ${8080}`)
 })
