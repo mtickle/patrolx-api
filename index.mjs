@@ -6,10 +6,11 @@ import fs from 'fs'
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit'
+import cors from 'cors';
+
 
 //--- Initialize Dotenv.
 dotenv.config()
-
 
 //--- Implement rate limiting.
 const limiter = rateLimit({
@@ -19,7 +20,6 @@ const limiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
-
 //--- Connect to MongoDB Atlas
 const mongoString = process.env.DATABASE_URL;
 mongoose.set('strictQuery', true);
@@ -27,11 +27,17 @@ mongoose.connect(mongoString, function(err) {
     if (err) throw err;
 });
 
+var corsOptions = {
+	origin: '*'
+  }
+
+
+
 //--- Manage some things on the APP: Express and CORS
 const app = express();  
 app.use(json());
 app.use(limiter);
-//app.use(morgan('combined'));
+app.use(cors(corsOptions));
 
 //--- Logging
 app.use(morgan('common', {
