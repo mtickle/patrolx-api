@@ -73,8 +73,6 @@ router.post("/postIncident", auth.checkKey, async (req, res) => {
 
 router.get("/getAllIncidents",  auth.checkKey, async (req, res) => {
 
-  console.log("hey")
-
   //--- Get the record limit from the querystring
   const recordLimit = req.query.limit || 10
   try {
