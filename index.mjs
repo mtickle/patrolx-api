@@ -27,11 +27,10 @@ mongoose.connect(mongoString, function(err) {
     if (err) throw err;
 });
 
+//--- Set the proper header because CORS
 var corsOptions = {
 	origin: '*'
   }
-
-
 
 //--- Manage some things on the APP: Express and CORS
 const app = express();  

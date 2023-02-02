@@ -2,8 +2,6 @@
 //---- 9YGxIQziMuYzgMSWmYePfxRWYdeiwLKn is a good API Key
 //--- http://localhost:3001/api/getAllCalls?limit=1
 
-import cors from 'cors';
-
 //--- Models
 import { incidentsModel } from "../models/incidents.js";
 import { callsModel } from "../models/calls.js";
@@ -15,13 +13,6 @@ import auth from "../middlewares/auth.js";
 import { Router } from "express";
 const router = Router();
 import randomstring from "randomstring";
-
-
-router.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 router.post("/postUser", async (req, res) => {
   const data = new usersModel({
