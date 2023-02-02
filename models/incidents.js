@@ -47,7 +47,7 @@ const incidentSchema = new Schema({
   },
   reportedDate: {
     required: false,
-    type: String,
+    type: Date,
   },
   reportedDay: {
     required: false,
