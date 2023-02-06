@@ -7,6 +7,7 @@ import { incidentsModel } from "../models/incidents.js";
 import { callsModel } from "../models/calls.js";
 import { usersModel } from "../models/users.js";
 import { arrestsModel } from "../models/arrests.js"
+import { crashLocationsModel } from "../models/crashlocations.js";
 
 //--- Helpers
 import auth from "../middlewares/auth.js";
@@ -138,8 +139,6 @@ try {
 
 router.get("/getAllCalls", auth.checkKey,async (req, res) => {
 
-
-
     //--- Get the record limit from the querystring
     const recordLimit = req.query.limit || 10
 
@@ -209,6 +208,64 @@ router.post("/postArrest", auth.checkKey,async (req, res) => {
   race: req.body.race,
   dateArr: req.body.dateArr,
   charge: req.body.charge
+});
+
+try {
+  const dataToSave = await data.save();
+  res.status(200).json(dataToSave);
+} catch (error) {
+  res.status(400).json({ message: error.message });
+}
+});
+
+router.post("/postCrashLocation", auth.checkKey,async (req, res) => {
+  const data = new crashLocationsModel({
+    //TODO fix these name
+    key_crash : rec.body.key_crash,
+		dateofcrashmilli : rec.body.DateOfCrash,
+		localuse : rec.body.LocalUse,
+		locationrelationtoroad : rec.body.LocationRelationToRoad,
+		locationinnearindicator : rec.body.LocationInNearIndicator,
+		locationcity : rec.body.LocationCity,
+		locationroadnameon : rec.body.LocationRoadNameOn,
+		locationrampindicator : rec.body.LocationRampIndicator,
+		locationfeetfromroad : rec.body.LocationFeetFromRoad,
+		locationmilesfromroad : rec.body.LocationMilesFromRoad,
+		locationdirectionfromroad : rec.body.LocationDirectionFromRoad,
+		locationatfromindicator : rec.body.LocationAtFromIndicator,
+		locationroadnameat : rec.body.LocationRoadNameAt,
+		locationdirectiontoroad : rec.body.LocationDirectionToRoad,
+		locationroadnameto : rec.body.LocationRoadNameTo,
+		firstharmfulevent : rec.body.FirstHarmfulEvent,
+		mostharmfulevent : rec.body.MostHarmfulEvent,
+		roadclassification : rec.body.RoadClassification,
+		roadfeature : rec.body.RoadFeature,
+		trafficcontroltype : rec.body.TrafficControlType,
+		weathercondition1 : rec.body.WeatherCondition1,
+		weathercondition2 : rec.body.WeatherCondition2,
+		weathercontributedtocrash : rec.body.WeatherContributedToCrash,
+		updatedate : rec.body.UpdateDate,
+		crash_date_day : rec.body.CrashDateDay,
+		crash_date_dow : rec.body.CrashDateDOW,
+		crash_date_dow_num : rec.body.CrashDateDOWNum,
+		crash_date_hour : rec.body.CrashDateHour,
+		crash_date_month : rec.body.CrashDateMonth,
+		crash_date_month_num : rec.body.CrashDateMonthNum,
+		crash_date_year : rec.body.CrashDateYear,
+		drivers : rec.body.Drivers,
+		passengers : rec.body.Passengers,
+		pedestrians : rec.body.Pedestrians,
+		pedalcyclists : rec.body.Pedalcyclists,
+		other_person_type : rec.body.OtherPersonType,
+		unknown_person_type : rec.body.UnknownPersonType,
+		killed : rec.body.Killed,
+		type_a_injury : rec.body.TypeAInjury,
+		type_b_injury : rec.body.TypeBInjury,
+		type_c_injury : rec.body.TypeBInjury,
+		no_injury : rec.body.NoInjury,
+		injury_unknown : rec.body.InjuryUnknown,
+		locationlatitude : rec.body.LocationLatitude,
+		locationlongitude : rec.body.LocationLongitude
 });
 
 try {
