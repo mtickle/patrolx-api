@@ -8,6 +8,7 @@ import { callsModel } from "../models/calls.js";
 import { usersModel } from "../models/users.js";
 import { arrestsModel } from "../models/arrests.js"
 import { crashLocationsModel } from "../models/crashlocations.js";
+import { format } from "morgan";
 
 //--- Helpers
 import auth from "../middlewares/auth.js";
@@ -219,53 +220,54 @@ try {
 });
 
 router.post("/postCrashLocation", auth.checkKey,async (req, res) => {
+
   const data = new crashLocationsModel({
-    //TODO fix these name
-    key_crash : rec.body.key_crash,
-		dateofcrashmilli : rec.body.DateOfCrash,
-		localuse : rec.body.LocalUse,
-		locationrelationtoroad : rec.body.LocationRelationToRoad,
-		locationinnearindicator : rec.body.LocationInNearIndicator,
-		locationcity : rec.body.LocationCity,
-		locationroadnameon : rec.body.LocationRoadNameOn,
-		locationrampindicator : rec.body.LocationRampIndicator,
-		locationfeetfromroad : rec.body.LocationFeetFromRoad,
-		locationmilesfromroad : rec.body.LocationMilesFromRoad,
-		locationdirectionfromroad : rec.body.LocationDirectionFromRoad,
-		locationatfromindicator : rec.body.LocationAtFromIndicator,
-		locationroadnameat : rec.body.LocationRoadNameAt,
-		locationdirectiontoroad : rec.body.LocationDirectionToRoad,
-		locationroadnameto : rec.body.LocationRoadNameTo,
-		firstharmfulevent : rec.body.FirstHarmfulEvent,
-		mostharmfulevent : rec.body.MostHarmfulEvent,
-		roadclassification : rec.body.RoadClassification,
-		roadfeature : rec.body.RoadFeature,
-		trafficcontroltype : rec.body.TrafficControlType,
-		weathercondition1 : rec.body.WeatherCondition1,
-		weathercondition2 : rec.body.WeatherCondition2,
-		weathercontributedtocrash : rec.body.WeatherContributedToCrash,
-		updatedate : rec.body.UpdateDate,
-		crash_date_day : rec.body.CrashDateDay,
-		crash_date_dow : rec.body.CrashDateDOW,
-		crash_date_dow_num : rec.body.CrashDateDOWNum,
-		crash_date_hour : rec.body.CrashDateHour,
-		crash_date_month : rec.body.CrashDateMonth,
-		crash_date_month_num : rec.body.CrashDateMonthNum,
-		crash_date_year : rec.body.CrashDateYear,
-		drivers : rec.body.Drivers,
-		passengers : rec.body.Passengers,
-		pedestrians : rec.body.Pedestrians,
-		pedalcyclists : rec.body.Pedalcyclists,
-		other_person_type : rec.body.OtherPersonType,
-		unknown_person_type : rec.body.UnknownPersonType,
-		killed : rec.body.Killed,
-		type_a_injury : rec.body.TypeAInjury,
-		type_b_injury : rec.body.TypeBInjury,
-		type_c_injury : rec.body.TypeBInjury,
-		no_injury : rec.body.NoInjury,
-		injury_unknown : rec.body.InjuryUnknown,
-		locationlatitude : rec.body.LocationLatitude,
-		locationlongitude : rec.body.LocationLongitude
+
+    key_crash : req.body.key_crash,
+		dateOfCrashMilli : req.body.dateOfCrashMilli,
+		localUse : req.body.localUse,
+		locationRelationToRoad : req.body.locationRelationToRoad,
+		locationInnearIndicator : req.body.locationInnearIndicator,
+		locationCity : req.body.locationCity,
+		locationRoadName : req.body.locationRoadName,
+		locationRampIndicator : req.body.locationRampIndicator,
+		locationFeetFromRoad : req.body.locationFeetFromRoad,
+		locationMilesFromRoad : req.body.locationMilesFromRoad,
+		locationDirectionFromRoad : req.body.locationDirectionFromRoad,
+		locationatFromIndicator : req.body.locationatFromIndicator,
+		locationRoadNameAt : req.body.locationRoadNameAt,
+		locationDirectionToRoad : req.body.locationDirectionToRoad,
+		locationRadNameTo : req.body.locationRadNameTo,
+		firstHarmfulEvent : req.body.firstHarmfulEvent,
+		mostHarmfulEvent : req.body.mostHarmfulEvent,
+		roadClassification : req.body.roadClassification,
+		roadFeature : req.body.roadFeature,
+		trafficControlType : req.body.trafficControlType,
+		weatherCondition1 : req.body.weatherCondition1,
+		weatherCondition2 : req.body.weatherCondition2,
+		weatherContributedToCrash : req.body.weatherContributedToCrash,
+		updateDate : req.body.updateDate,
+		crashDateDay : req.body.crashDateDay,
+		crashDateDow : req.body.crashDateDow,
+		crashDateDowNum : req.body.crashDateDowNum,
+		crashDateHour : req.body.crashDateHour,
+		crashDateMonth : req.body.crashDateMonth,
+		crashDateMonthNum : req.body.crashDateMonthNum,
+		crashDateYear : req.body.crashDateYear,
+		drivers : req.body.drivers,
+		passengers : req.body.passengers,
+		pedestrians : req.body.pedestrians,
+		pedalCyclists : req.body.pedalCyclists,
+		otherPersonType : req.body.otherPersonType,
+		unknownPersonType : req.body.unknownPersonType,
+		killed : req.body.killed,
+		typeAInjury : req.body.typeAInjury,
+		typeBInjury : req.body.typeBInjury,
+		typeCInjury : req.body.typeCInjury,
+		noInjury : req.body.noInjury,
+		injuryUnknown : req.body.injuryUnknown,
+		locationLatitude : req.body.locationLatitude,
+		locationLongitude : req.body.locationLongitude
 });
 
 try {

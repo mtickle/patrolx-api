@@ -1,184 +1,184 @@
 import mongoose, { Schema } from "mongoose";
 
 const crashLocationsSchema = new Schema({
-		key_crash: {
-    required: true,
+  key_crash: {
+    required: false,
     type: String,
   },
-		dateofcrashmilli: {
-    required: true,
+dateOfCrashMilli: {
+    required: false,
     type: String,
   },
-		localuse: {
-    required: true,
+localUse: {
+    required: false,
     type: String,
   },
-		locationrelationtoroad: {
-    required: true,
+locationRelationToRoad: {
+    required: false,
     type: String,
   },
-		locationinnearindicator: {
-    required: true,
+locationInnearIndicator: {
+    required: false,
     type: String,
   },
-		locationcity: {
-    required: true,
+locationCity: {
+    required: false,
     type: String,
   },
-		locationroadnameon: {
-    required: true,
+locationRoadName: {
+    required: false,
     type: String,
   },
-		locationrampindicator: {
-    required: true,
+locationRampIndicator: {
+    required: false,
     type: String,
   },
-		locationfeetfromroad: {
-    required: true,
+locationFeetFromRoad: {
+    required: false,
     type: String,
   },
-		locationmilesfromroad: {
-    required: true,
+locationMilesFromRoad: {
+    required: false,
     type: String,
   },
-		locationdirectionfromroad: {
-    required: true,
+locationDirectionFromRoad: {
+    required: false,
     type: String,
   },
-		locationatfromindicator: {
-    required: true,
+locationatFromIndicator: {
+    required: false,
     type: String,
   },
-		locationroadnameat: {
-    required: true,
+locationRoadNameAt: {
+    required: false,
     type: String,
   },
-		locationdirectiontoroad: {
-    required: true,
+locationDirectionToRoad: {
+    required: false,
     type: String,
   },
-		locationroadnameto: {
-    required: true,
+locationRadNameTo: {
+    required: false,
     type: String,
   },
-		firstharmfulevent: {
-    required: true,
+firstHarmfulEvent: {
+    required: false,
     type: String,
   },
-		mostharmfulevent: {
-    required: true,
+mostHarmfulEvent: {
+    required: false,
     type: String,
   },
-		roadclassification: {
-    required: true,
+roadClassification: {
+    required: false,
     type: String,
   },
-		roadfeature: {
-    required: true,
+roadFeature: {
+    required: false,
     type: String,
   },
-		trafficcontroltype: {
-    required: true,
+trafficControlType: {
+    required: false,
     type: String,
   },
-		weathercondition1: {
-    required: true,
+weatherCondition1: {
+    required: false,
     type: String,
   },
-		weathercondition2: {
-    required: true,
+weatherCondition2: {
+    required: false,
     type: String,
   },
-		weathercontributedtocrash: {
-    required: true,
+weatherContributedToCrash: {
+    required: false,
     type: String,
   },
-		updatedate: {
-    required: true,
+updateDate: {
+    required: false,
     type: String,
   },
-		crash_date_day: {
-    required: true,
+crashDateDay: {
+    required: false,
     type: String,
   },
-		crash_date_dow: {
-    required: true,
+crashDateDow: {
+    required: false,
     type: String,
   },
-		crash_date_dow_num: {
-    required: true,
+crashDateDowNum: {
+    required: false,
     type: String,
   },
-		crash_date_hour: {
-    required: true,
+crashDateHour: {
+    required: false,
     type: String,
   },
-		crash_date_month: {
-    required: true,
+crashDateMonth: {
+    required: false,
     type: String,
   },
-		crash_date_month_num: {
-    required: true,
+crashDateMonthNum: {
+    required: false,
     type: String,
   },
-		crash_date_year: {
-    required: true,
+crashDateYear: {
+    required: false,
     type: String,
   },
-		drivers: {
-    required: true,
+drivers: {
+    required: false,
     type: String,
   },
-		passengers: {
-    required: true,
+passengers: {
+    required: false,
     type: String,
   },
-		pedestrians: {
-    required: true,
+pedestrians: {
+    required: false,
     type: String,
   },
-		pedalcyclists: {
-    required: true,
+pedalCyclists: {
+    required: false,
     type: String,
   },
-		other_person_type: {
-    required: true,
+otherPersonType: {
+    required: false,
     type: String,
   },
-		unknown_person_type: {
-    required: true,
+unknownPersonType: {
+    required: false,
     type: String,
   },
-		killed: {
-    required: true,
+killed: {
+    required: false,
     type: String,
   },
-		type_a_injury: {
-    required: true,
+typeAInjury: {
+    required: false,
     type: String,
   },
-		type_b_injury: {
-    required: true,
+typeBInjury: {
+    required: false,
     type: String,
   },
-		type_c_injury: {
-    required: true,
+typeCInjury: {
+    required: false,
     type: String,
   },
-		no_injury: {
-    required: true,
+noInjury: {
+    required: false,
     type: String,
   },
-		injury_unknown: {
-    required: true,
+injuryUnknown: {
+    required: false,
     type: String,
   },
-		locationlatitude: {
-    required: true,
+locationLatitude: {
+    required: false,
     type: String,
   },
-		locationlongitude: {
-    required: true,
+locationLongitude: {
+    required: false,
     type: String,
   }
 });
