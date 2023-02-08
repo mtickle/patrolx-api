@@ -198,8 +198,8 @@ res.status(500).json({ message: error.message });
 
 router.post("/postArrest", auth.checkKey,async (req, res) => {
   const data = new arrestsModel({
-  first: req.body.first,
-  last: req.body.last,
+  firstName: req.body.firstName,
+  lastName: req.body.lastName,
   height: req.body.height,
   weight: req.body.weight,
   hair: req.body.hair,

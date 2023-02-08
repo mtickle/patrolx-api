@@ -1,11 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 
 const arrestsSchema = new Schema({
-    first: {
+    firstName: {
       required: false,
       type: String,
     },
-    last: {
+    lastName: {
         required: false,
         type: String,
       },
