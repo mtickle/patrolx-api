@@ -41,6 +41,10 @@ const arrestsSchema = new Schema({
         required: false,
         type: String,
       },
+      timeArr: {
+        required: false,
+        type: String,
+      },
       charge: {
         required: false,
         type: String,

@@ -208,6 +208,7 @@ router.post("/postArrest", auth.checkKey,async (req, res) => {
   sex: req.body.sex,
   race: req.body.race,
   dateArr: req.body.dateArr,
+  timeArr: req.body.timeArr,
   charge: req.body.charge
 });
 
