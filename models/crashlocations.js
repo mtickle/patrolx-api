@@ -183,4 +183,4 @@ locationLongitude: {
   }
 });
 
-export const crashLocationsModel = mongoose.model("crashLocations", crashLocationsSchema);
+export const crashLocationsModel = mongoose.model("crashlocations", crashLocationsSchema);
