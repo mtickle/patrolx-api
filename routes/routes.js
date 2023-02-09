@@ -279,4 +279,16 @@ try {
 }
 });
 
+router.get("/getAllCrashLocations", auth.checkKey,async (req, res) => {
+
+  const recordLimit = req.query.limit || 10
+
+try {
+const data = await crashLocationsModel.find().limit(recordLimit).sort({dateOfCrash:-1});
+res.json(data);
+} catch (error) {
+res.status(500).json({ message: error.message });
+}
+});
+
 export default router;
