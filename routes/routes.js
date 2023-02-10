@@ -58,6 +58,7 @@ router.post("/postIncident", auth.checkKey, async (req, res) => {
     district: req.body.district,
     reportedDayOfWeek: req.body.reportedDayOfWeek,
     reportedDate: req.body.reportedDate,
+    reportedTime: req.body.reportedTime,
     reportedDay: req.body.reportedDay,
     updatedDate: req.body.updatedDate,
     crimeDescription: req.body.crimeDescription,
