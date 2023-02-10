@@ -225,7 +225,8 @@ router.post("/postCrashLocation", auth.checkKey,async (req, res) => {
   const data = new crashLocationsModel({
 
     key_crash : req.body.key_crash,
-		dateOfCrashMilli : req.body.dateOfCrashMilli,
+		dateOfCrash : req.body.dateOfCrash,
+    timeOfCrash : req.body.timeOfCrash,
 		localUse : req.body.localUse,
 		locationRelationToRoad : req.body.locationRelationToRoad,
 		locationInnearIndicator : req.body.locationInnearIndicator,

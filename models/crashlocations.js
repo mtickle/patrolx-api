@@ -5,182 +5,189 @@ const crashLocationsSchema = new Schema({
     required: false,
     type: String,
   },
-dateOfCrashMilli: {
+  dateOfCrash: {
     required: false,
     type: String,
   },
-localUse: {
+  timeOfCrash: {
     required: false,
     type: String,
   },
-locationRelationToRoad: {
+  localUse: {
     required: false,
     type: String,
   },
-locationInnearIndicator: {
+  locationRelationToRoad: {
     required: false,
     type: String,
   },
-locationCity: {
+  locationInnearIndicator: {
     required: false,
     type: String,
   },
-locationRoadName: {
+  locationCity: {
     required: false,
     type: String,
   },
-locationRampIndicator: {
+  locationRoadName: {
     required: false,
     type: String,
   },
-locationFeetFromRoad: {
+  locationRampIndicator: {
     required: false,
     type: String,
   },
-locationMilesFromRoad: {
+  locationFeetFromRoad: {
     required: false,
     type: String,
   },
-locationDirectionFromRoad: {
+  locationMilesFromRoad: {
     required: false,
     type: String,
   },
-locationatFromIndicator: {
+  locationDirectionFromRoad: {
     required: false,
     type: String,
   },
-locationRoadNameAt: {
+  locationatFromIndicator: {
     required: false,
     type: String,
   },
-locationDirectionToRoad: {
+  locationRoadNameAt: {
     required: false,
     type: String,
   },
-locationRadNameTo: {
+  locationDirectionToRoad: {
     required: false,
     type: String,
   },
-firstHarmfulEvent: {
+  locationRadNameTo: {
     required: false,
     type: String,
   },
-mostHarmfulEvent: {
+  firstHarmfulEvent: {
     required: false,
     type: String,
   },
-roadClassification: {
+  mostHarmfulEvent: {
     required: false,
     type: String,
   },
-roadFeature: {
+  roadClassification: {
     required: false,
     type: String,
   },
-trafficControlType: {
+  roadFeature: {
     required: false,
     type: String,
   },
-weatherCondition1: {
+  trafficControlType: {
     required: false,
     type: String,
   },
-weatherCondition2: {
+  weatherCondition1: {
     required: false,
     type: String,
   },
-weatherContributedToCrash: {
+  weatherCondition2: {
     required: false,
     type: String,
   },
-updateDate: {
+  weatherContributedToCrash: {
     required: false,
     type: String,
   },
-crashDateDay: {
+  updateDate: {
     required: false,
     type: String,
   },
-crashDateDow: {
+  crashDateDay: {
     required: false,
     type: String,
   },
-crashDateDowNum: {
+  crashDateDow: {
     required: false,
     type: String,
   },
-crashDateHour: {
+  crashDateDowNum: {
     required: false,
     type: String,
   },
-crashDateMonth: {
+  crashDateHour: {
     required: false,
     type: String,
   },
-crashDateMonthNum: {
+  crashDateMonth: {
     required: false,
     type: String,
   },
-crashDateYear: {
+  crashDateMonthNum: {
     required: false,
     type: String,
   },
-drivers: {
+  crashDateYear: {
     required: false,
     type: String,
   },
-passengers: {
+  drivers: {
     required: false,
     type: String,
   },
-pedestrians: {
+  passengers: {
     required: false,
     type: String,
   },
-pedalCyclists: {
+  pedestrians: {
     required: false,
     type: String,
   },
-otherPersonType: {
+  pedalCyclists: {
     required: false,
     type: String,
   },
-unknownPersonType: {
+  otherPersonType: {
     required: false,
     type: String,
   },
-killed: {
+  unknownPersonType: {
     required: false,
     type: String,
   },
-typeAInjury: {
+  killed: {
     required: false,
     type: String,
   },
-typeBInjury: {
+  typeAInjury: {
     required: false,
     type: String,
   },
-typeCInjury: {
+  typeBInjury: {
     required: false,
     type: String,
   },
-noInjury: {
+  typeCInjury: {
     required: false,
     type: String,
   },
-injuryUnknown: {
+  noInjury: {
     required: false,
     type: String,
   },
-locationLatitude: {
+  injuryUnknown: {
     required: false,
     type: String,
   },
-locationLongitude: {
+  locationLatitude: {
     required: false,
     type: String,
-  }
+  },
+  locationLongitude: {
+    required: false,
+    type: String,
+  },
 });
 
-export const crashLocationsModel = mongoose.model("crashlocations", crashLocationsSchema);
+export const crashLocationsModel = mongoose.model(
+  "crashlocations",
+  crashLocationsSchema
+);
