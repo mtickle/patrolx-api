@@ -8,6 +8,7 @@ import { callsModel } from "../models/calls.js";
 import { usersModel } from "../models/users.js";
 import { arrestsModel } from "../models/arrests.js"
 import { crashLocationsModel } from "../models/crashlocations.js";
+import { emdCodesModel } from "../models/emdcodes.js";
 import { format } from "morgan";
 
 //--- Helpers
@@ -28,6 +29,19 @@ try {
 } catch (error) {
   res.status(400).json({ message: error.message });
 }
+});
+
+router.get("/getAllEmdCodes", auth.checkKey, async (req, res) => {
+
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 100
+
+  try {
+    const data = await emdCodesModel.find().limit(recordLimit);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 router.get("/getAllUsers", auth.checkKey, async (req, res) => {
