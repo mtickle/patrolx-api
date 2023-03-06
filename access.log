@@ -2236,3 +2236,11 @@
 ::ffff:127.0.0.1 - - [10/Feb/2023:22:55:35 +0000] "POST /api/postIncident HTTP/1.1" 200 506
 ::ffff:127.0.0.1 - - [10/Feb/2023:22:55:35 +0000] "POST /api/postIncident HTTP/1.1" 200 512
 ::ffff:127.0.0.1 - - [27/Feb/2023:17:14:30 +0000] "GET /api/getAllEmdCodes HTTP/1.1" 200 3528
+::ffff:127.0.0.1 - - [06/Mar/2023:18:36:10 +0000] "GET /api/getAllUsers HTTP/1.1" 200 706
+::ffff:127.0.0.1 - - [06/Mar/2023:18:36:12 +0000] "GET /api/getAllUsers HTTP/1.1" 200 706
+::ffff:127.0.0.1 - - [06/Mar/2023:18:36:12 +0000] "GET /api/getAllUsers HTTP/1.1" 200 706
+::ffff:127.0.0.1 - - [06/Mar/2023:18:36:12 +0000] "GET /api/getAllUsers HTTP/1.1" 200 706
+::ffff:127.0.0.1 - - [06/Mar/2023:18:36:12 +0000] "GET /api/getAllUsers HTTP/1.1" 200 706
+::ffff:127.0.0.1 - - [06/Mar/2023:18:36:13 +0000] "GET /api/getAllUsers HTTP/1.1" 200 706
+::ffff:127.0.0.1 - - [06/Mar/2023:18:36:19 +0000] "GET /api/getAllCalls HTTP/1.1" 200 2605
+::ffff:127.0.0.1 - - [06/Mar/2023:18:36:27 +0000] "GET /api/getAllIncidents HTTP/1.1" 200 5502
