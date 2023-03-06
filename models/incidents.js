@@ -59,7 +59,7 @@ const incidentSchema = new Schema({
   },
   updatedDate: {
     required: false,
-    type: Date,
+    type: String,
   },
   crimeDescription: {
     required: false,
