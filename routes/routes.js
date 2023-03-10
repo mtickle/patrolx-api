@@ -308,9 +308,6 @@ res.status(500).json({ message: error.message });
 }
 });
 
-
-
-
 router.post("/postLocation", auth.checkKey, async (req, res) => {
 
   const data = new locationsModel({
