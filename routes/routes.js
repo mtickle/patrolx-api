@@ -9,6 +9,7 @@ import { usersModel } from "../models/users.js";
 import { arrestsModel } from "../models/arrests.js"
 import { crashLocationsModel } from "../models/crashlocations.js";
 import { emdCodesModel } from "../models/emdcodes.js";
+import { locationsModel } from "../models/locations.js";
 import { format } from "morgan";
 
 //--- Helpers
@@ -306,5 +307,69 @@ res.json(data);
 res.status(500).json({ message: error.message });
 }
 });
+
+
+
+
+router.post("/postLocation", auth.checkKey, async (req, res) => {
+
+  const data = new locationsModel({
+  address: req.body.address,
+  city: req.body.city,
+});
+
+try {
+  const dataToSave = await data.save();
+  res.status(200).json(dataToSave);
+} catch (error) {
+  res.status(400).json({ message: error.message });
+}
+});
+
+router.get("/getAllLocations",  auth.checkKey, async (req, res) => {
+
+//--- Get the record limit from the querystring
+const recordLimit = req.query.limit || 10
+try {
+  const data = await incidentsModel.find().limit(recordLimit);
+  res.json(data);
+} catch (error) {
+  res.status(500).json({ message: error.message });
+}
+});
+
+router.get("/getOneLocation/:id", auth.checkKey,async (req, res) => {
+try {
+  const data = await findById(req.params.id);
+  res.json(data);
+} catch (error) {
+  res.status(500).json({ message: error.message });
+}
+});
+
+router.patch("/updateLocation/:id", auth.checkKey,async (req, res) => {
+try {
+  const id = req.params.id;
+  const updatedData = req.body;
+  const options = { new: true };
+
+  const result = await findByIdAndUpdate(id, updatedData, options);
+
+  res.send(result);
+} catch (error) {
+  res.status(500).json({ message: error.message });
+}
+});
+
+router.delete("/deleteLocation/:id", auth.checkKey,async (req, res) => {
+try {
+  const id = req.params.id;
+  const data = await findByIdAndDelete(id);
+  res.send(`Document with ${data.name} has been deleted..`);
+} catch (error) {
+  res.status(400).json({ message: error.message });
+}
+});
+
 
 export default router;
