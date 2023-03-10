@@ -328,7 +328,7 @@ router.get("/getAllLocations",  auth.checkKey, async (req, res) => {
 //--- Get the record limit from the querystring
 const recordLimit = req.query.limit || 10
 try {
-  const data = await locationsModel.find().limit(recordLimit);
+  const data = await locationsModel.find().limit(recordLimit).sort({_id: -1});
   res.json(data);
 } catch (error) {
   res.status(500).json({ message: error.message });
