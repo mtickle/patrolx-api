@@ -344,7 +344,7 @@ try {
 }
 });
 
-router.patch("/updateLocation/:id", auth.checkKey,async (req, res) => {
+router.patch("/updateLocation/:id", auth.checkKey,async (req, res) => {  
 try {
   const id = req.params.id;
   const updatedData = req.body;
