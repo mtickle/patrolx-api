@@ -361,8 +361,8 @@ try {
 router.delete("/deleteLocation/:id", auth.checkKey,async (req, res) => {
 try {
   const id = req.params.id;
-  const data = await findByIdAndDelete(id);
-  res.send(`Document with ${data.name} has been deleted..`);
+  const data = await locationsModel.findByIdAndDelete(id);
+  res.send(`Document with ${req.params.id} has been deleted..`);
 } catch (error) {
   res.status(400).json({ message: error.message });
 }
