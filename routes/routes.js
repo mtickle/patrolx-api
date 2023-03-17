@@ -336,8 +336,9 @@ try {
 });
 
 router.get("/getOneLocation/:id", auth.checkKey,async (req, res) => {
+  console.log("ok")
 try {
-  const data = await findById(req.params.id);
+  const data = await locationsModel.findById(req.params.id);
   res.json(data);
 } catch (error) {
   res.status(500).json({ message: error.message });
@@ -350,7 +351,7 @@ try {
   const updatedData = req.body;
   const options = { new: true };
 
-  const result = await findByIdAndUpdate(id, updatedData, options);
+  const result = await locationsModel.findByIdAndUpdate(id, updatedData, options);
 
   res.send(result);
 } catch (error) {
