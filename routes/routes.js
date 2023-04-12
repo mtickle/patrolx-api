@@ -10,6 +10,8 @@ import { arrestsModel } from "../models/arrests.js"
 import { crashLocationsModel } from "../models/crashlocations.js";
 import { emdCodesModel } from "../models/emdcodes.js";
 import { locationsModel } from "../models/locations.js";
+import { ccbiArrestsModel } from "../models/ccbiArrests.js";
+
 import { format } from "morgan";
 
 //--- Helpers
@@ -85,6 +87,7 @@ router.post("/postIncident", auth.checkKey, async (req, res) => {
     const dataToSave = await data.save();
     res.status(200).json(dataToSave);
   } catch (error) {
+    //console.log(error)
     res.status(400).json({ message: error.message });
   }
 });
@@ -236,6 +239,41 @@ try {
 }
 });
 
+router.get("/getAllCcbiArrests", auth.checkKey,async (req, res) => {
+
+  const recordLimit = req.query.limit || 10
+
+try {
+const data = await ccbiArrestsModel.find().limit(recordLimit).sort({dateOfArrest: -1, timeOfArrest: -1});
+res.json(data);
+} catch (error) {
+res.status(500).json({ message: error.message });
+}
+});
+
+router.post("/postCcbiArrest", auth.checkKey,async (req, res) => {
+  const data = new ccbiArrestsModel({
+  name: req.body.name,
+  ageAtArrest: req.body.ageAtArrest,
+  gender: req.body.gender,
+  residence: req.body.residence,
+  employer: req.body.employer,
+  dateOfArrest: req.body.dateOfArrest,
+  timeOfArrest: req.body.timeOfArrest,
+  arrestLocation: req.body.arrestLocation,
+  arrestingOfficer: req.body.arrestingOfficer,
+  arrestingAgency: req.body.arrestingAgency,
+  charge: req.body.charge
+});
+//console.log(req)
+try {
+  const dataToSave = await data.save();
+  res.status(200).json(dataToSave);
+} catch (error) {
+
+  res.status(400).json({ message: error.message });
+}
+});
 router.post("/postCrashLocation", auth.checkKey,async (req, res) => {
 
   const data = new crashLocationsModel({
