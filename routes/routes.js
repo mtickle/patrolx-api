@@ -460,4 +460,16 @@ try {
 }
 });
 
+router.get("/getAllTraffic",  auth.checkKey, async (req, res) => {
+
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10
+  try {
+    const data = await trafficModel.find().limit(recordLimit).sort({dateOfStop: -1});
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+  });
+
 export default router;
