@@ -11,6 +11,7 @@ import { crashLocationsModel } from "../models/crashlocations.js";
 import { emdCodesModel } from "../models/emdcodes.js";
 import { locationsModel } from "../models/locations.js";
 import { ccbiArrestsModel } from "../models/ccbiArrests.js";
+import { trafficModel } from "../models/traffic.js";
 
 import { format } from "morgan";
 
@@ -87,7 +88,7 @@ router.post("/postIncident", auth.checkKey, async (req, res) => {
     const dataToSave = await data.save();
     res.status(200).json(dataToSave);
   } catch (error) {
-    //console.log(error)
+    console.log(error)
     res.status(400).json({ message: error.message });
   }
 });
@@ -244,7 +245,7 @@ router.get("/getAllCcbiArrests", auth.checkKey,async (req, res) => {
   const recordLimit = req.query.limit || 10
 
 try {
-const data = await ccbiArrestsModel.find().limit(recordLimit).sort({dateOfArrest: -1, timeOfArrest: -1});
+const data = await ccbiArrestsModel.find().limit(recordLimit).sort({dateOfArrest: 1, timeOfArrest: -1});
 res.json(data);
 } catch (error) {
 res.status(500).json({ message: error.message });
@@ -265,16 +266,18 @@ router.post("/postCcbiArrest", auth.checkKey,async (req, res) => {
   arrestingAgency: req.body.arrestingAgency,
   charge: req.body.charge
 });
-//console.log(req)
+
 try {
   const dataToSave = await data.save();
   res.status(200).json(dataToSave);
 } catch (error) {
-
+console.log(error)
   res.status(400).json({ message: error.message });
 }
 });
+
 router.post("/postCrashLocation", auth.checkKey,async (req, res) => {
+
 
   const data = new crashLocationsModel({
 
@@ -323,10 +326,12 @@ router.post("/postCrashLocation", auth.checkKey,async (req, res) => {
 		noInjury : req.body.noInjury,
 		injuryUnknown : req.body.injuryUnknown,
 		locationLatitude : req.body.locationLatitude,
-		locationLongitude : req.body.locationLongitude
+		locationLongitude : req.body.locationLongitude,
+    location: req.body.location
 });
 
 try {
+  console.log(data)
   const dataToSave = await data.save();
   res.status(200).json(dataToSave);
 } catch (error) {
@@ -407,5 +412,52 @@ try {
 }
 });
 
+router.post("/postTraffic", auth.checkKey, async (req, res) => {
+
+  const data = new trafficModel({
+    belts: req.body.belts,
+    location: req.body.location,
+    race: req.body.race,
+    arrestType: req.body.arrestType,
+    charge: req.body.charge,
+    subagency: req.body.subagency,
+    dateOfStop: req.body.dateOfStop,
+    color: req.body.color,
+    vehicleType: req.body.vehicleType,
+    accident: req.body.accident,
+    state: req.body.state,
+    violationType: req.body.violationType,
+    latitude: req.body.latitude,
+    driverState: req.body.driverState,
+    model: req.body.model,
+    personalInjury: req.body.personalInjury,
+    article: req.body.article,
+    description: req.body.description,
+    hazmat: req.body.hazmat,
+    fatal: req.body.fatal,
+    year: req.body.year,
+    propertyDamage: req.body.propertyDamage,
+    agency: req.body.agency,
+    gender: req.body.gender,
+    driverCity: req.body.driverCity,
+    longitude: req.body.longitude,
+    alcohol: req.body.alcohol,
+    timeOfStop: req.body.timeOfStop,
+    commercialVehicle: req.body.commercialVehicle,
+    make: req.body.make,
+    workZone: req.body.workZone,
+    dlState: req.body.dlState,
+    contributedToAccident: req.body.contributedToAccident,
+    commercialLicense: req.body.commercialLicense,
+});
+
+try {
+  const dataToSave = await data.save();
+  res.status(200).json(dataToSave);
+} catch (error) {
+  console.log(error)
+  res.status(400).json({ message: error.message });
+}
+});
 
 export default router;

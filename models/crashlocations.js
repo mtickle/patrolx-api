@@ -1,5 +1,17 @@
 import mongoose, { Schema } from "mongoose";
 
+const pointSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ['Point'],
+    required: true
+  },
+  coordinates: {
+    type: [Number],
+    required: true
+  }
+});
+
 const crashLocationsSchema = new Schema({
   key_crash: {
     required: false,
@@ -185,9 +197,14 @@ const crashLocationsSchema = new Schema({
     required: false,
     type: String,
   },
+  location: {
+    required: false,
+    type: String,
+  }
+
 });
 
 export const crashLocationsModel = mongoose.model(
-  "crashlocations",
+  "crashlocations2",
   crashLocationsSchema
 );
