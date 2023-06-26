@@ -205,6 +205,6 @@ const crashLocationsSchema = new Schema({
 });
 
 export const crashLocationsModel = mongoose.model(
-  "crashlocations2",
+  "crashlocations",
   crashLocationsSchema
 );
