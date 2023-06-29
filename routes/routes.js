@@ -245,8 +245,10 @@ router.get("/getAllCcbiArrests", auth.checkKey,async (req, res) => {
   const recordLimit = req.query.limit || 10
 
 try {
-const data = await ccbiArrestsModel.find().limit(recordLimit).sort({dateOfArrest: 1, timeOfArrest: -1});
+//const data = await ccbiArrestsModel.find().limit(recordLimit).sort({dateOfArrest: 1, timeOfArrest: -1});
+const data = await ccbiArrestsModel.find().limit(recordLimit).sort({dateOfArrest: -1, timeOfArrest: -1});
 res.json(data);
+console.log(data)
 } catch (error) {
 res.status(500).json({ message: error.message });
 }
