@@ -12,7 +12,7 @@ import { emdCodesModel } from "../models/emdcodes.js";
 import { locationsModel } from "../models/locations.js";
 import { ccbiArrestsModel } from "../models/ccbiArrests.js";
 import { trafficModel } from "../models/traffic.js";
-import { callsAgencyCountModel } from "../models/callsAgencyCounts.js";
+import { callCountsByAgencyModel } from "../models/metrics_callCountsByAgency.js";
 
 import { format } from "morgan";
 
@@ -21,6 +21,35 @@ import auth from "../middlewares/auth.js";
 import { Router } from "express";
 const router = Router();
 import randomstring from "randomstring";
+
+
+//--- -------------------------------------------------------
+//--- METRICS
+//--- -------------------------------------------------------
+
+router.get("/getCallCountsByAgency", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+ 
+
+  try {
+    const data = await callCountsByAgencyModel
+      .find()
+      .limit(recordLimit)
+      .sort({ AgencyCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+
+
+});
+
+
+//--- -------------------------------------------------------
+//--- END METRICS
+//--- -------------------------------------------------------
 
 router.post("/postUser", async (req, res) => {
   const data = new usersModel({
@@ -205,18 +234,7 @@ router.delete("/deleteCall/:id", auth.checkKey,async (req, res) => {
   }
 });
 
-router.get("/getAgencyCallsCount", auth.checkKey,async (req, res) => {
 
-  //--- Get the record limit from the querystring
-  const recordLimit = req.query.limit || 10
-
-try {
-const data = await callsAgencyCountModel.find().limit(recordLimit).sort({AgencyCount: -1});
-res.json(data);
-} catch (error) {
-res.status(500).json({ message: error.message });
-}
-});
 
 router.get("/getAllArrests", auth.checkKey,async (req, res) => {
 
