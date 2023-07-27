@@ -13,6 +13,7 @@ import { locationsModel } from "../models/locations.js";
 import { ccbiArrestsModel } from "../models/ccbiArrests.js";
 import { trafficModel } from "../models/traffic.js";
 import { callCountsByAgencyModel } from "../models/metrics_callCountsByAgency.js";
+import { callCountsByIncidentModel } from "../models/metrics_callCountsByIncident.js";
 
 import { format } from "morgan";
 
@@ -31,8 +32,6 @@ router.get("/getCallCountsByAgency", auth.checkKey, async (req, res) => {
   //--- Get the record limit from the querystring
   const recordLimit = req.query.limit || 10;
 
- 
-
   try {
     const data = await callCountsByAgencyModel
       .find()
@@ -42,10 +41,23 @@ router.get("/getCallCountsByAgency", auth.checkKey, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-
-
 });
 
+
+router.get("/getCallCountsByIncident", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await callCountsByIncidentModel
+      .find()
+      .limit(recordLimit)
+      .sort({ IncidentCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 //--- -------------------------------------------------------
 //--- END METRICS
