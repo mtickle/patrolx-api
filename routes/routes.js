@@ -14,6 +14,7 @@ import { ccbiArrestsModel } from "../models/ccbiArrests.js";
 import { trafficModel } from "../models/traffic.js";
 import { callCountsByAgencyModel } from "../models/metrics_callCountsByAgency.js";
 import { callCountsByIncidentModel } from "../models/metrics_callCountsByIncident.js";
+import { callCountsByEmdCodeModel } from "../models/metrics_callCountsByEmdCode.js";
 
 import { format } from "morgan";
 
@@ -53,6 +54,21 @@ router.get("/getCallCountsByIncident", auth.checkKey, async (req, res) => {
       .find()
       .limit(recordLimit)
       .sort({ IncidentCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getCallCountsByEmdCode", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await callCountsByEmdCodeModel
+      .find()
+      .limit(recordLimit)
+      .sort({ EmdCodeCount: -1 });
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });

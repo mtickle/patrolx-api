@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
 
-
 const callCountsByIncidentSchema = new Schema(
   {
     _id: {
@@ -13,6 +12,5 @@ const callCountsByIncidentSchema = new Schema(
       }
 }
 );
-
 
 export const callCountsByIncidentModel = mongoose.model("metrics_call_counts_by_incident", callCountsByIncidentSchema, "metrics_call_counts_by_incident");
