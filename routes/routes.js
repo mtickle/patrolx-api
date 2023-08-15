@@ -15,6 +15,7 @@ import { trafficModel } from "../models/traffic.js";
 import { callCountsByAgencyModel } from "../models/metrics_callCountsByAgency.js";
 import { callCountsByIncidentModel } from "../models/metrics_callCountsByIncident.js";
 import { callCountsByEmdCodeModel } from "../models/metrics_callCountsByEmdCode.js";
+import { callCountsByHourModel } from "../models/metrics_callCountsByHour.js";
 
 import { format } from "morgan";
 
@@ -28,6 +29,21 @@ import randomstring from "randomstring";
 //--- -------------------------------------------------------
 //--- METRICS
 //--- -------------------------------------------------------
+
+router.get("/getCallCountsByHour", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 24;
+
+  try {
+    const data = await callCountsByHourModel
+      .find()
+      .limit(recordLimit)
+      .sort({ _id: 1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 router.get("/getCallCountsByAgency", auth.checkKey, async (req, res) => {
   //--- Get the record limit from the querystring
