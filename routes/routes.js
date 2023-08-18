@@ -16,8 +16,10 @@ import { callCountsByAgencyModel } from "../models/metrics_callCountsByAgency.js
 import { callCountsByIncidentModel } from "../models/metrics_callCountsByIncident.js";
 import { callCountsByEmdCodeModel } from "../models/metrics_callCountsByEmdCode.js";
 import { callCountsByHourModel } from "../models/metrics_callCountsByHour.js";
-
-import { format } from "morgan";
+import { incidentCountsByDistrictModel } from "../models/metrics_incidentCountsByDistrict.js";
+import { incidentCountsByTypeModel } from "../models/metrics_incidentCountsByType.js";
+import { incidentCountsByHourModel } from "../models/metrics_incidentCountsByHour.js";
+import { incidentCountsByDayOfWeekModel } from "../models/metrics_incidentCountsByDayOfWeek.js";
 
 //--- Helpers
 import auth from "../middlewares/auth.js";
@@ -29,6 +31,66 @@ import randomstring from "randomstring";
 //--- -------------------------------------------------------
 //--- METRICS
 //--- -------------------------------------------------------
+
+router.get("/getIncidentCountsByDayOfWeek", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 7;
+
+  try {
+    const data = await incidentCountsByDayOfWeekModel
+      .find()
+      .limit(recordLimit)
+      .sort({ _id: 1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getIncidentCountsByHour", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 24;
+
+  try {
+    const data = await incidentCountsByHourModel
+      .find()
+      .limit(recordLimit)
+      .sort({ _id: 1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getIncidentCountsByDistrict", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await incidentCountsByDistrictModel
+      .find()
+      .limit(recordLimit)
+      .sort({ IncidentCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getIncidentCountsByType", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await incidentCountsByTypeModel
+      .find()
+      .limit(recordLimit)
+      .sort({ IncidentCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 router.get("/getCallCountsByHour", auth.checkKey, async (req, res) => {
   //--- Get the record limit from the querystring
@@ -59,7 +121,6 @@ router.get("/getCallCountsByAgency", auth.checkKey, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 router.get("/getCallCountsByIncident", auth.checkKey, async (req, res) => {
   //--- Get the record limit from the querystring
