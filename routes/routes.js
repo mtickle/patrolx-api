@@ -12,14 +12,19 @@ import { emdCodesModel } from "../models/emdcodes.js";
 import { locationsModel } from "../models/locations.js";
 import { ccbiArrestsModel } from "../models/ccbiArrests.js";
 import { trafficModel } from "../models/traffic.js";
+
 import { callCountsByAgencyModel } from "../models/metrics_callCountsByAgency.js";
 import { callCountsByIncidentModel } from "../models/metrics_callCountsByIncident.js";
 import { callCountsByEmdCodeModel } from "../models/metrics_callCountsByEmdCode.js";
 import { callCountsByHourModel } from "../models/metrics_callCountsByHour.js";
+
 import { incidentCountsByDistrictModel } from "../models/metrics_incidentCountsByDistrict.js";
 import { incidentCountsByTypeModel } from "../models/metrics_incidentCountsByType.js";
 import { incidentCountsByHourModel } from "../models/metrics_incidentCountsByHour.js";
 import { incidentCountsByDayOfWeekModel } from "../models/metrics_incidentCountsByDayOfWeek.js";
+
+import { crashTypeCountModel } from "../models/metrics_crashTypeCounts.js";
+import { crashLocationCountModel } from "../models/metrics_crashLocationCounts.js"
 
 //--- Helpers
 import auth from "../middlewares/auth.js";
@@ -27,6 +32,7 @@ import { Router } from "express";
 const router = Router();
 import randomstring from "randomstring";
 
+console.log(router.toString)
 
 //--- -------------------------------------------------------
 //--- METRICS
@@ -152,6 +158,37 @@ router.get("/getCallCountsByEmdCode", auth.checkKey, async (req, res) => {
   }
 });
 
+router.get("/getCrashTypeCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await crashTypeCountModel
+      .find()
+      .limit(recordLimit)
+      .sort({ CrashCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getCrashLocationCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await crashLocationCountModel
+      .find()
+      .limit(recordLimit)
+      .sort({ CrashCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 //--- -------------------------------------------------------
 //--- END METRICS
 //--- -------------------------------------------------------
@@ -232,6 +269,7 @@ router.get("/getAllIncidents",  auth.checkKey, async (req, res) => {
 
   //--- Get the record limit from the querystring
   const recordLimit = req.query.limit || 10
+  console.log("hi")
   try {
     const data = await incidentsModel.find().limit(recordLimit).sort({ reportedDate: -1, reportedHour: -1});
     res.json(data);
@@ -242,6 +280,9 @@ router.get("/getAllIncidents",  auth.checkKey, async (req, res) => {
 
 router.get("/getOneIncident/:id", auth.checkKey,async (req, res) => {
   try {
+
+    console.log(req)
+
     const data = await findById(req.params.id);
     res.json(data);
   } catch (error) {
@@ -307,6 +348,7 @@ router.get("/getAllCalls", auth.checkKey,async (req, res) => {
 });
 
 router.get("/getOneCall/:id", auth.checkKey,async (req, res) => {
+  console.log("hi")
   try {
     const data = await _findById(req.params.id);
     res.json(data);
