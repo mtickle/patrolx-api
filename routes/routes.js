@@ -26,6 +26,11 @@ import { incidentCountsByDayOfWeekModel } from "../models/metrics_incidentCounts
 import { crashTypeCountModel } from "../models/metrics_crashTypeCounts.js";
 import { crashLocationCountModel } from "../models/metrics_crashLocationCounts.js"
 
+import { arrestsCountsByAgencyModel } from "../models/metrics_arrestsCountsByAgency.js";
+import { arrestsCountsByChargeModel } from "../models/metrics_arrestsCountsByCharge.js";
+import { arrestsCountsByGenderModel } from "../models/metrics_arrestsCountsByGender.js";
+import { arrestsCountsByOfficerModel } from "../models/metrics_arrestsCountsByOfficer.js";
+
 //--- Helpers
 import auth from "../middlewares/auth.js";
 import { Router } from "express";
@@ -188,6 +193,65 @@ router.get("/getCrashLocationCounts", auth.checkKey, async (req, res) => {
   }
 });
 
+router.get("/getArrestChargeCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await arrestsCountsByChargeModel
+      .find()
+      .limit(recordLimit)
+      .sort({ ItemCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getArrestAgencyCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await arrestsCountsByAgencyModel
+      .find()
+      .limit(recordLimit)
+      .sort({ ItemCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getArrestGenderCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await arrestsCountsByGenderModel
+      .find()
+      .limit(recordLimit)
+      .sort({ ItemCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getArrestOfficerCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await arrestsCountsByOfficerModel
+      .find()
+      .limit(recordLimit)
+      .sort({ ItemCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 //--- -------------------------------------------------------
 //--- END METRICS
