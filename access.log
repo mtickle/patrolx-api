@@ -119,3 +119,7 @@
 ::ffff:127.0.0.1 - - [06/Jan/2024:13:52:41 +0000] "GET /api/getArrestAgencyCounts HTTP/1.1" 200 544
 ::ffff:127.0.0.1 - - [06/Jan/2024:13:52:47 +0000] "GET /api/getArrestAgencyCounts HTTP/1.1" 200 544
 ::ffff:127.0.0.1 - - [06/Jan/2024:13:52:48 +0000] "GET /api/getArrestAgencyCounts HTTP/1.1" 200 544
+::ffff:127.0.0.1 - - [10/Jan/2024:15:03:28 +0000] "GET /api/getTrafficStopGenderCounts HTTP/1.1" 200 87
+::ffff:127.0.0.1 - - [10/Jan/2024:15:03:37 +0000] "GET /api/getTrafficStopRaceCounts HTTP/1.1" 200 210
+::ffff:127.0.0.1 - - [10/Jan/2024:15:03:47 +0000] "GET /api/getTrafficStopMakeCounts HTTP/1.1" 200 323
+::ffff:127.0.0.1 - - [10/Jan/2024:15:03:55 +0000] "GET /api/getTrafficStopDescriptionCounts HTTP/1.1" 200 953
