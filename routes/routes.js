@@ -13,23 +13,28 @@ import { locationsModel } from "../models/locations.js";
 import { ccbiArrestsModel } from "../models/ccbiArrests.js";
 import { trafficModel } from "../models/traffic.js";
 
-import { callCountsByAgencyModel } from "../models/metrics_callCountsByAgency.js";
-import { callCountsByIncidentModel } from "../models/metrics_callCountsByIncident.js";
-import { callCountsByEmdCodeModel } from "../models/metrics_callCountsByEmdCode.js";
-import { callCountsByHourModel } from "../models/metrics_callCountsByHour.js";
+import { callCountsByAgencyModel } from "../models/calls/metrics_callCountsByAgency.js";
+import { callCountsByIncidentModel } from "../models/calls/metrics_callCountsByIncident.js";
+import { callCountsByEmdCodeModel } from "../models/calls/metrics_callCountsByEmdCode.js";
+import { callCountsByHourModel } from "../models/calls/metrics_callCountsByHour.js";
 
-import { incidentCountsByDistrictModel } from "../models/metrics_incidentCountsByDistrict.js";
-import { incidentCountsByTypeModel } from "../models/metrics_incidentCountsByType.js";
-import { incidentCountsByHourModel } from "../models/metrics_incidentCountsByHour.js";
-import { incidentCountsByDayOfWeekModel } from "../models/metrics_incidentCountsByDayOfWeek.js";
+import { incidentCountsByDistrictModel } from "../models/incidents/metrics_incidentCountsByDistrict.js";
+import { incidentCountsByTypeModel } from "../models/incidents/metrics_incidentCountsByType.js";
+import { incidentCountsByHourModel } from "../models/incidents/metrics_incidentCountsByHour.js";
+import { incidentCountsByDayOfWeekModel } from "../models/incidents/metrics_incidentCountsByDayOfWeek.js";
 
-import { crashTypeCountModel } from "../models/metrics_crashTypeCounts.js";
-import { crashLocationCountModel } from "../models/metrics_crashLocationCounts.js"
+import { crashTypeCountModel } from "../models/crashlocations/metrics_crashTypeCounts.js";
+import { crashLocationCountModel } from "../models/crashlocations/metrics_crashLocationCounts.js"
 
-import { arrestsCountsByAgencyModel } from "../models/metrics_arrestsCountsByAgency.js";
-import { arrestsCountsByChargeModel } from "../models/metrics_arrestsCountsByCharge.js";
-import { arrestsCountsByGenderModel } from "../models/metrics_arrestsCountsByGender.js";
-import { arrestsCountsByOfficerModel } from "../models/metrics_arrestsCountsByOfficer.js";
+import { arrestsCountsByAgencyModel } from "../models/arrests/metrics_arrestsCountsByAgency.js";
+import { arrestsCountsByChargeModel } from "../models/arrests/metrics_arrestsCountsByCharge.js";
+import { arrestsCountsByGenderModel } from "../models/arrests/metrics_arrestsCountsByGender.js";
+import { arrestsCountsByOfficerModel } from "../models/arrests/metrics_arrestsCountsByOfficer.js";
+
+import { trafficstopsCountsByDescModel } from "../models/traffic/metrics_trafficStopCountsByDescription.js";
+import { trafficstopsCountsByGenderModel } from "../models/traffic/metrics_trafficStopCountsByGender.js";
+import { trafficstopsCountsByRaceModel } from "../models/traffic/metrics_trafficStopCountsByRace.js";
+import { trafficstopsCountsByMakeModel } from "../models/traffic/metrics_trafficStopCountsByMake.js";
 
 //--- Helpers
 import auth from "../middlewares/auth.js";
@@ -252,6 +257,68 @@ router.get("/getArrestOfficerCounts", auth.checkKey, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+
+router.get("/getTrafficStopDescriptionCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await trafficstopsCountsByDescModel
+      .find()
+      .limit(recordLimit)
+      .sort({ ItemCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getTrafficStopMakeCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await trafficstopsCountsByMakeModel
+      .find()
+      .limit(recordLimit)
+      .sort({ ItemCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getTrafficStopRaceCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await trafficstopsCountsByRaceModel
+      .find()
+      .limit(recordLimit)
+      .sort({ ItemCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getTrafficStopGenderCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await trafficstopsCountsByGenderModel
+      .find()
+      .limit(recordLimit)
+      .sort({ ItemCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 //--- -------------------------------------------------------
 //--- END METRICS
