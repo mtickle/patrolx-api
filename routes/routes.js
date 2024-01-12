@@ -478,14 +478,24 @@ router.get("/getAllCalls", auth.checkKey,async (req, res) => {
 }
 });
 
+// router.get("/getOneCall/:call", auth.checkKey,async (req, res) => {
+//   console.log("hi")
+//   try {
+//     const data = await _findById(req.params.call);
+//     res.json(data);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+
 router.get("/getOneCall/:id", auth.checkKey,async (req, res) => {
-  console.log("hi")
-  try {
-    const data = await _findById(req.params.id);
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  console.log("ok")
+try {
+  const data = await callsModel.findById(req.params.id);
+  res.json(data);
+} catch (error) {
+  res.status(500).json({ message: error.message });
+}
 });
 
 router.patch("/updateCall/:id", auth.checkKey,async (req, res) => {
