@@ -42,7 +42,7 @@ import { Router } from "express";
 const router = Router();
 import randomstring from "randomstring";
 
-console.log(router.toString)
+console.log(router)
 
 //--- -------------------------------------------------------
 //--- METRICS
@@ -488,10 +488,10 @@ router.get("/getAllCalls", auth.checkKey,async (req, res) => {
 //   }
 // });
 
-router.get("/getOneCall/:id", auth.checkKey,async (req, res) => {
+router.get("/getCall/:_id", auth.checkKey,async (req, res) => {
   console.log("ok")
 try {
-  const data = await callsModel.findById(req.params.id);
+  const data = await callsModel.findById(req.params._id);
   res.json(data);
 } catch (error) {
   res.status(500).json({ message: error.message });

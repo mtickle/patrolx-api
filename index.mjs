@@ -23,31 +23,31 @@ const limiter = rateLimit({
 //--- Connect to MongoDB Atlas
 const mongoString = process.env.DATABASE_URL;
 mongoose.set('strictQuery', true);
-mongoose.connect(mongoString, function(err) {
-    if (err) throw err;
+mongoose.connect(mongoString, function (err) {
+	if (err) throw err;
 });
 
 //--- Set the proper header because CORS
 var corsOptions = {
 	origin: '*'
-  }
+}
 
 //--- Manage some things on the APP: Express and CORS
-const app = express();  
+const app = express();
 app.use(json());
 app.use(limiter);
 app.use(cors(corsOptions));
 
 //--- Logging
 app.use(morgan('common', {
-    stream: fs.createWriteStream('./access.log', {flags: 'a'})
+	stream: fs.createWriteStream('./access.log', { flags: 'a' })
 }));
 
 //--- Name and implement the ROUTES
 import routes from './routes/routes.js';
 app.use('/api', routes)
-  
+
 //--- Open the SERVER
 app.listen(8080, () => {
-    console.log(`API listening on ${8080}`)
+	console.log(`API listening on ${8080}`)
 })
