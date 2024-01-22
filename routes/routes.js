@@ -409,17 +409,14 @@ router.get("/getAllIncidents",  auth.checkKey, async (req, res) => {
   }
 });
 
-router.get("/getOneIncident/:id", auth.checkKey,async (req, res) => {
+router.get("/getIncident/:id", auth.checkKey,async (req, res) => {
   try {
-
-    console.log(req)
-
-    const data = await findById(req.params.id);
+    const data = await incidentsModel.findById(req.params._id);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+  });
 
 router.patch("/updateIncident/:id", auth.checkKey,async (req, res) => {
   try {
@@ -489,7 +486,6 @@ router.get("/getAllCalls", auth.checkKey,async (req, res) => {
 // });
 
 router.get("/getCall/:_id", auth.checkKey,async (req, res) => {
-  console.log("ok")
 try {
   const data = await callsModel.findById(req.params._id);
   res.json(data);
