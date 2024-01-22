@@ -117,3 +117,9 @@
 ::1 - - [22/Jan/2024:11:05:27 +0000] "GET /api/getIncident/65ae3dce7acbdf6e060c8a7c HTTP/1.1" 200 4
 ::1 - - [22/Jan/2024:11:05:28 +0000] "GET /api/getIncident/65ae3dce7acbdf6e060c8a7c HTTP/1.1" 200 4
 ::1 - - [22/Jan/2024:11:05:49 +0000] "GET /api/getIncident/65ae3dcf7acbdf6e060c8a88 HTTP/1.1" 200 4
+::1 - - [22/Jan/2024:11:07:08 +0000] "GET /api/getIncident/65ae3dcf7acbdf6e060c8a88 HTTP/1.1" 200 4
+::1 - - [22/Jan/2024:11:07:08 +0000] "GET /api/getIncident/65ae3dcf7acbdf6e060c8a88 HTTP/1.1" 200 4
+::1 - - [22/Jan/2024:11:07:15 +0000] "GET /api/getIncident/65ae3dcf7acbdf6e060c8a88 HTTP/1.1" 200 4
+::1 - - [22/Jan/2024:11:07:18 +0000] "GET /api/getIncident/65ae3dcf7acbdf6e060c8a88 HTTP/1.1" 200 4
+::1 - - [22/Jan/2024:11:07:19 +0000] "GET /api/getIncident/65ae3dcf7acbdf6e060c8a88 HTTP/1.1" 200 4
+::1 - - [22/Jan/2024:11:07:19 +0000] "GET /api/getIncident/65ae3dcf7acbdf6e060c8a88 HTTP/1.1" 200 4
