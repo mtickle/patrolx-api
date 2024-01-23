@@ -10,7 +10,7 @@ import { arrestsModel } from "../models/arrests.js"
 import { crashLocationsModel } from "../models/crashlocations.js";
 import { emdCodesModel } from "../models/emdcodes.js";
 import { locationsModel } from "../models/locations.js";
-import { ccbiArrestsModel } from "../models/ccbiArrests.js";
+//import { ccbiArrestsModel } from "../models/ccbiArrests.js";
 import { trafficModel } from "../models/traffic.js";
 
 import { callCountsByAgencyModel } from "../models/calls/metrics_callCountsByAgency.js";
@@ -409,7 +409,7 @@ router.get("/getAllIncidents",  auth.checkKey, async (req, res) => {
   }
 });
 
-router.get("/getIncident/:id", auth.checkKey,async (req, res) => {
+router.get("/getIncident/:_id", auth.checkKey,async (req, res) => {
   try {
     const data = await incidentsModel.findById(req.params._id);
     res.json(data);

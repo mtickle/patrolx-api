@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
-//--
+
+
 const incidentSchema = new Schema({
   caseNumber: {
     required: false,
