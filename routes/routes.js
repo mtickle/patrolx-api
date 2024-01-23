@@ -556,6 +556,15 @@ try {
 }
 });
 
+router.get("/getArrest/:_id", auth.checkKey,async (req, res) => {
+  try {
+    const data = await ccbiArrestsModel.findById(req.params._id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+  });
+
 router.get("/getAllCcbiArrests", auth.checkKey,async (req, res) => {
 
   const recordLimit = req.query.limit || 10
