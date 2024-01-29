@@ -8,6 +8,7 @@ import { callsModel } from "../models/calls.js";
 import { usersModel } from "../models/users.js";
 import { arrestsModel } from "../models/arrests.js"
 import { crashLocationsModel } from "../models/crashlocations.js";
+import { crashPersonsModel } from "../models/crashpersons.js";
 import { emdCodesModel } from "../models/emdcodes.js";
 import { locationsModel } from "../models/locations.js";
 import { ccbiArrestsModel } from "../models/ccbiArrests.js";
@@ -605,7 +606,6 @@ console.log(error)
 
 router.post("/postCrashLocation", auth.checkKey,async (req, res) => {
 
-
   const data = new crashLocationsModel({
 
     key_crash : req.body.key_crash,
@@ -677,6 +677,55 @@ res.json(data);
 res.status(500).json({ message: error.message });
 }
 });
+
+
+
+
+router.post("/postCrashPerson", auth.checkKey,async (req, res) => {
+
+  const data = new crashPersonsModel({
+
+  keyCrash: req.body.KeyCrash,
+  objectid: req.body.Objectid,
+  city: req.body.City,
+  dLClass: req.body.DLClass,
+  dLRestrictions: req.body.DLRestrictions,
+  dLState: req.body.DLState,
+  cdl: req.body.Cdl,
+  age: req.body.Age,
+  vehicleSeizure: req.body.VehicleSeizure,
+  alcoholSuspected: req.body.AlcoholSuspected,
+  alcoholTest: req.body.AlcoholTest,
+  alcoholResultType: req.body.AlcoholResultType,
+  airbagSwitch: req.body.AirbagSwitch,
+  airbagDeployed: req.body.AirbagDeployed,
+  ejection: req.body.Ejection,
+  gender: req.body.Gender,
+  race: req.body.Race,
+  injury: req.body.Injury,
+  protection: req.body.Protection,
+  trapped: req.body.Trapped,
+  personType: req.body.PersonType,
+  visionObstruction: req.body.VisionObstruction,
+  contributingCircumstance1: req.body.ContributingCircumstance1,
+  contributingCircumstance2: req.body.ContributingCircumstance2,
+  contributingCircumstance3: req.body.ContributingCircumstance3,
+  vehicleType: req.body.VehicleType,
+  crashDate: req.body.CrashDate,
+  dateOfCrash: req.body.dateOfCrash,
+  timeOfCrash: req.body.timeOfCrash
+});
+
+try {
+  console.log(data)
+  const dataToSave = await data.save();
+  res.status(200).json(dataToSave);
+} catch (error) {
+  res.status(400).json({ message: error.message });
+}
+});
+
+
 
 router.post("/postLocation", auth.checkKey, async (req, res) => {
 
