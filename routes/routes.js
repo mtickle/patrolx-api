@@ -13,6 +13,7 @@ import { emdCodesModel } from "../models/emdcodes.js";
 import { locationsModel } from "../models/locations.js";
 import { ccbiArrestsModel } from "../models/ccbiArrests.js";
 import { trafficModel } from "../models/traffic.js";
+import { vehicleMakesModel } from "../models/vehiclemakes.js";
 
 import { callCountsByAgencyModel } from "../models/calls/metrics_callCountsByAgency.js";
 import { callCountsByIncidentModel } from "../models/calls/metrics_callCountsByIncident.js";
@@ -325,6 +326,24 @@ router.get("/getTrafficStopGenderCounts", auth.checkKey, async (req, res) => {
 //--- END METRICS
 //--- -------------------------------------------------------
 
+router.post("/postVehicleMake", async (req, res) => {
+  const data = new vehicleMakesModel({
+    makeId: req.body.makeId,
+    makeName:req.body.makeName,
+    modelId: req.body.modelId,
+    modelName:req.body.modelName,
+    vehicleTypeID:req.body.vehicleTypeID,
+    vehicleTypeName:req.body.vehicleTypeName
+});
+
+try {
+  const dataToSave = await data.save();
+  res.status(200).json(dataToSave);
+} catch (error) {
+  res.status(400).json({ message: error.message });
+}
+});
+
 router.post("/postUser", async (req, res) => {
   const data = new usersModel({
   username: req.body.username,
@@ -519,8 +538,6 @@ router.delete("/deleteCall/:id", auth.checkKey,async (req, res) => {
   }
 });
 
-
-
 router.get("/getAllArrests", auth.checkKey,async (req, res) => {
 
   const recordLimit = req.query.limit || 10
@@ -678,9 +695,6 @@ res.status(500).json({ message: error.message });
 }
 });
 
-
-
-
 router.post("/postCrashPerson", auth.checkKey,async (req, res) => {
 
   const data = new crashPersonsModel({
@@ -724,8 +738,6 @@ try {
   res.status(400).json({ message: error.message });
 }
 });
-
-
 
 router.post("/postLocation", auth.checkKey, async (req, res) => {
 
