@@ -1,0 +1,6 @@
+After you redeploy this from source control.
+
+If you did git stash, you need to restore the .env file and then npm i the node files
+
+
+DATABASE_URL = "mongodb+srv://dbuser:VJSgn0qluw2E4Ned@cluster0.ihffsxu.mongodb.net/patrolx"

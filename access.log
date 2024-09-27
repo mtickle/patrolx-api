@@ -22207,3 +22207,15 @@
 ::ffff:127.0.0.1 - - [01/Feb/2024:11:26:57 +0000] "POST /api/postVehicleMake HTTP/1.1" 200 177
 ::ffff:127.0.0.1 - - [01/Feb/2024:11:26:57 +0000] "POST /api/postVehicleMake HTTP/1.1" 200 180
 ::ffff:127.0.0.1 - - [01/Feb/2024:11:26:57 +0000] "POST /api/postVehicleMake HTTP/1.1" 200 181
+::1 - - [27/Sep/2024:13:03:24 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 51
+::1 - - [27/Sep/2024:13:03:26 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 51
+::1 - - [27/Sep/2024:13:05:15 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 287
+::1 - - [27/Sep/2024:13:05:16 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 287
+::1 - - [27/Sep/2024:13:05:16 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 287
+::1 - - [27/Sep/2024:13:05:17 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 287
+::1 - - [27/Sep/2024:13:05:29 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 287
+::1 - - [27/Sep/2024:13:05:30 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 287
+::1 - - [27/Sep/2024:13:05:30 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 287
+::1 - - [27/Sep/2024:13:05:31 +0000] "GET /api/getArrestAgeCounts HTTP/1.1" 200 287
+::1 - - [27/Sep/2024:13:06:03 +0000] "GET /api/getAllTraffic HTTP/1.1" 200 8522
+::1 - - [27/Sep/2024:13:08:41 +0000] "GET /api/getAllTraffic HTTP/1.1" 200 8522
