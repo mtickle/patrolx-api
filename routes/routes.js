@@ -32,6 +32,7 @@ import { arrestsCountsByAgencyModel } from "../models/arrests/metrics_arrestsCou
 import { arrestsCountsByChargeModel } from "../models/arrests/metrics_arrestsCountsByCharge.js";
 import { arrestsCountsByGenderModel } from "../models/arrests/metrics_arrestsCountsByGender.js";
 import { arrestsCountsByOfficerModel } from "../models/arrests/metrics_arrestsCountsByOfficer.js";
+import { arrestsCountsByAgeModel } from "../models/arrests/metrics_arrestsCountsByAge.js";
 
 import { trafficstopsCountsByDescModel } from "../models/traffic/metrics_trafficStopCountsByDescription.js";
 import { trafficstopsCountsByGenderModel } from "../models/traffic/metrics_trafficStopCountsByGender.js";
@@ -206,6 +207,21 @@ router.get("/getArrestChargeCounts", auth.checkKey, async (req, res) => {
 
   try {
     const data = await arrestsCountsByChargeModel
+      .find()
+      .limit(recordLimit)
+      .sort({ ItemCount: -1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/getArrestAgeCounts", auth.checkKey, async (req, res) => {
+  //--- Get the record limit from the querystring
+  const recordLimit = req.query.limit || 10;
+
+  try {
+    const data = await arrestsCountsByAgeModel
       .find()
       .limit(recordLimit)
       .sort({ ItemCount: -1 });
