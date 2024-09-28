@@ -224,7 +224,7 @@ router.get("/getArrestAgeCounts", auth.checkKey, async (req, res) => {
     const data = await arrestsCountsByAgeModel
       .find()
       .limit(recordLimit)
-      .sort({ ItemCount: -1 });
+      .sort({ _id: 1 });
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
