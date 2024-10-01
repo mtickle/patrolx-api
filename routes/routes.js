@@ -6,7 +6,6 @@
 import { incidentsModel } from "../models/incidents.js";
 import { callsModel } from "../models/calls.js";
 import { usersModel } from "../models/users.js";
-import { arrestsModel } from "../models/arrests.js"
 import { crashLocationsModel } from "../models/crashlocations.js";
 import { crashPersonsModel } from "../models/crashpersons.js";
 import { emdCodesModel } from "../models/emdcodes.js";
