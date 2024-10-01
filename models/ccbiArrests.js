@@ -19,6 +19,14 @@ const ccbiArrestsSchema = new Schema({
       required: false,
       type: String,
     },
+    residenceLat: {
+      required: false,
+      type: String,
+    },
+    residenceLng: {
+      required: false,
+      type: String,
+    },
     employer: {
       required: false,
       type: String,
@@ -32,6 +40,14 @@ const ccbiArrestsSchema = new Schema({
       type: String,
     },
     arrestLocation: {
+      required: false,
+      type: String,
+    },
+    arrestLat: {
+      required: false,
+      type: String,
+    },
+    arrestLong: {
       required: false,
       type: String,
     },
