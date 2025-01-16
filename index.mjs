@@ -1,16 +1,11 @@
 
 //--- Imports
-import dotenv from 'dotenv'
 import express, { json } from 'express';
 import fs from 'fs'
-import mongoose from 'mongoose';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit'
 import cors from 'cors';
 
-
-//--- Initialize Dotenv.
-dotenv.config()
 
 //--- Implement rate limiting.
 const limiter = rateLimit({
@@ -19,13 +14,6 @@ const limiter = rateLimit({
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
-
-//--- Connect to MongoDB Atlas
-const mongoString = process.env.DATABASE_URL;
-mongoose.set('strictQuery', true);
-mongoose.connect(mongoString, function (err) {
-	if (err) throw err;
-});
 
 //--- Set the proper header because CORS
 var corsOptions = {
@@ -38,14 +26,28 @@ app.use(json());
 app.use(limiter);
 app.use(cors(corsOptions));
 
+
 //--- Logging
 app.use(morgan('common', {
 	stream: fs.createWriteStream('./access.log', { flags: 'a' })
 }));
 
-//--- Name and implement the ROUTES
-import routes from './routes/routes.js';
+//--- Routes
+// //--- Name and implement the ROUTES
+import routes from './routes/pg_routes.js';
 app.use('/api', routes)
+
+
+// //--- INCIDENTS
+// app.get('/incidents', async (req, res) => {
+// 	try {
+// 	  const result = await pool.query('SELECT * FROM incidents order by reportedDate DESC limit 20');
+// 	  res.json(result.rows);
+// 	} catch (error) {
+// 	  console.error('Error fetching users:', error);
+// 	  res.status(500).json({ error: 'Internal Server Error' });
+// 	}
+//   });
 
 //--- Open the SERVER
 app.listen(8080, () => {

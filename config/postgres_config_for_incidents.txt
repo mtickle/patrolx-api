@@ -1,0 +1,146 @@
+incidentid
+casenumber
+reportedhour
+longitude
+reportedyear
+reportedmonth
+latitude
+crimecode
+crimetype
+district
+reporteddayofweek
+reporteddate
+reportedtime
+reportedday
+updateddate
+crimedescription
+cityofincident
+reportedblockaddress
+
+//--- ADD INCIDENT
+CREATE OR REPLACE FUNCTION add_incident(
+        p_incidentID TEXT
+        , p_casenumber TEXT
+        , p_reportedhour TEXT
+        , p_longitude TEXT
+        , p_reportedyear TEXT
+        , p_reportedmonth TEXT
+        , p_latitude TEXT
+        , p_crimecode TEXT
+        , p_crimetype TEXT
+        , p_district TEXT
+        , p_reporteddayofweek TEXT
+        , p_reporteddate TEXT
+        , p_reportedtime TEXT
+        , p_reportedday TEXT
+        , p_updateddate TEXT
+        , p_crimedescription TEXT
+        , p_cityofincident TEXT
+        , p_reportedblockaddress TEXT
+)
+
+RETURNS VOID AS $$
+BEGIN
+
+INSERT INTO incidents (
+        incidentID,
+        casenumber,
+        reportedhour,
+        longitude,
+        reportedyear,
+        reportedmonth,
+        latitude,
+        crimecode,
+        crimetype,
+        district,
+        reporteddayofweek,
+        reporteddate,
+        reportedtime,
+        reportedday,
+        updateddate,
+        crimedescription,
+        cityofincident,
+        reportedblockaddress
+    ) VALUES (
+        p_incidentID,
+        p_casenumber,
+        p_reportedhour,
+        p_longitude,
+        p_reportedyear,
+        p_reportedmonth,
+        p_latitude,
+        p_crimecode,
+        p_crimetype,
+        p_district,
+        p_reporteddayofweek,
+        p_reporteddate,
+        p_reportedtime,
+        p_reportedday,
+        p_updateddate,
+        p_crimedescription,
+        p_cityofincident,
+        p_reportedblockaddress
+    );
+
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+
+//--- GET INCIDENTS
+DROP FUNCTION get_incidents(recordLimit INT);
+
+CREATE OR REPLACE FUNCTION get_incidents(recordLimit INT)
+RETURNS TABLE(incidentID UUID, 
+
+casenumber character varying,
+reportedhour character varying,
+longitude character varying,
+reportedyear character varying,
+reportedmonth character varying,
+latitude character varying,
+crimecode character varying,
+crimetype character varying,
+district character varying,
+reporteddayofweek character varying,
+reporteddate character varying,
+reportedtime character varying,
+reportedday character varying,
+updateddate character varying,
+crimedescription character varying,
+cityofincident character varying,
+reportedblockaddress character varying
+
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+incidents.incidentID,
+incidents.casenumber,
+incidents.reportedhour,
+incidents.longitude,
+incidents.reportedyear,
+incidents.reportedmonth,
+incidents.latitude,
+incidents.crimecode,
+incidents.crimetype,
+incidents.district,
+incidents.reporteddayofweek,
+incidents.reporteddate,
+incidents.reportedtime,
+incidents.reportedday,
+incidents.updateddate,
+incidents.crimedescription,
+incidents.cityofincident,
+reportedblockaddress
+    FROM incidents
+	LIMIT recordLimit;
+END;
+$$;
+
+
+SELECT * FROM get_incidents(10);

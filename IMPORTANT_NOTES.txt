@@ -4,3 +4,10 @@ If you did git stash, you need to restore the .env file and then npm i the node 
 
 
 DATABASE_URL = "mongodb+srv://dbuser:VJSgn0qluw2E4Ned@cluster0.ihffsxu.mongodb.net/patrolx"
+
+DATABASE_URL = "mongodb+srv://dbuser:VJSgn0qluw2E4Ned@cluster0.ihffsxu.mongodb.net/patrolx"
+DATABASE_HOST="192.168.86.58"
+DATABASE_PORT="5432"
+DATABASE_USERNAME=""
+DATABASE_PASSWORD=""
+DATABASE_NAME="patrolx"

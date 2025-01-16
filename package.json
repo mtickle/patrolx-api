@@ -19,10 +19,10 @@
     "mongoose": "^6.8.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
+    "pg": "^8.13.1",
     "pm2": "^5.2.2",
     "randomstring": "^1.2.3"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mtickle/patrolx-api.git"
