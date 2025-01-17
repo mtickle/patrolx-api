@@ -144,3 +144,34 @@ $$;
 
 
 SELECT * FROM get_incidents(10);
+
+
+
+
+
+
+//-----------------------------------------------------------------------------
+//--- STATS
+//-----------------------------------------------------------------------------
+DROP FUNCTION getIncidentCountsByType();
+CREATE OR REPLACE FUNCTION getIncidentCountsByType()
+RETURNS TABLE(
+        item character varying,
+        itemcount INT
+        )
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+select
+	crimedescription as item
+	, count(crimedescription) as itemcount
+from 
+	incidents
+group by 
+	crimedescription
+order by
+	itemcount desc
+limit 10
+END;
+$$;

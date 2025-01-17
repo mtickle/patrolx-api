@@ -37,18 +37,6 @@ app.use(morgan('common', {
 import routes from './routes/pg_routes.js';
 app.use('/api', routes)
 
-
-// //--- INCIDENTS
-// app.get('/incidents', async (req, res) => {
-// 	try {
-// 	  const result = await pool.query('SELECT * FROM incidents order by reportedDate DESC limit 20');
-// 	  res.json(result.rows);
-// 	} catch (error) {
-// 	  console.error('Error fetching users:', error);
-// 	  res.status(500).json({ error: 'Internal Server Error' });
-// 	}
-//   });
-
 //--- Open the SERVER
 app.listen(8080, () => {
 	console.log(`API listening on ${8080}`)

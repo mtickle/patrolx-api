@@ -39,6 +39,33 @@ router.get('/getAllIncidents', async (req, res) => {
     }
 });
 
+router.get('/getIncidentCountsByType', async (req, res) => {
 
+    const recordLimit = req.query.limit || 10
+    const offset = req.query.offset || 0;
+
+    try {
+        const result = await pool.query('select * from getincidentcountsbytype($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+router.get('/getIncidentCountsByHour', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+    const offset = req.query.offset || 0;
+
+    try {
+        const result = await pool.query('select * from getincidentcountsbyhour($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 export default router;
