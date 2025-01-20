@@ -28,10 +28,9 @@ const pool = new pg.Pool({
 router.get('/getAllIncidents', async (req, res) => {
 
     const recordLimit = req.query.limit || 10
-    const offset = req.query.offset || 0;
 
     try {
-        const result = await pool.query('SELECT * FROM get_incidents($1) OFFSET $2', [recordLimit, offset]);
+        const result = await pool.query('SELECT * FROM getincidents($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -42,7 +41,6 @@ router.get('/getAllIncidents', async (req, res) => {
 router.get('/getIncidentCountsByType', async (req, res) => {
 
     const recordLimit = req.query.limit || 10
-    const offset = req.query.offset || 0;
 
     try {
         const result = await pool.query('select * from getincidentcountsbytype($1)', [recordLimit]);
@@ -53,7 +51,6 @@ router.get('/getIncidentCountsByType', async (req, res) => {
     }
 });
 
-
 router.get('/getIncidentCountsByHour', async (req, res) => {
 
     const recordLimit = req.query.limit || 10
@@ -61,6 +58,34 @@ router.get('/getIncidentCountsByHour', async (req, res) => {
 
     try {
         const result = await pool.query('select * from getincidentcountsbyhour($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getIncidentCountsByDistrict', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+    const offset = req.query.offset || 0;
+
+    try {
+        const result = await pool.query('select * from getincidentcountsbydistrict($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getIncidentCountsByDayOfWeek', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+    const offset = req.query.offset || 0;
+
+    try {
+        const result = await pool.query('select * from getincidentcountsbyday($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);

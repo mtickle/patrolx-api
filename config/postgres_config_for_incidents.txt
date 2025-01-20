@@ -175,3 +175,32 @@ order by
 limit 10
 END;
 $$;
+
+
+
+
+
+
+DROP FUNCTION getitemcountsbytype(p_tablename text, p_itemname text, p_recordlimit integer);
+CREATE OR REPLACE FUNCTION getItemCountsByType(p_tablename TEXT, p_itemname TEXT, p_recordlimit integer)
+RETURNS TABLE(
+        itemname character varying,
+        itemcount INT
+        )
+LANGUAGE plpgsql
+AS $$
+BEGIN
+
+EXECUTE 
+'select
+	' || quote_ident(p_itemname) || ' as item
+	, count(' || quote_ident(p_itemname) || ') as itemcount
+from 
+	' || quote_ident(p_tablename) || '
+group by 
+	' || quote_ident(p_itemname) || '
+order by
+	itemcount desc
+limit '|| quote_ident(p_recordlimit) ||';';	
+END;
+$$;
