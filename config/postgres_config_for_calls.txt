@@ -1,0 +1,30 @@
+-- FUNCTION: public.getcallcountsbyagency(integer)
+
+-- DROP FUNCTION IF EXISTS public.getcallcountsbyagency(integer);
+
+CREATE OR REPLACE FUNCTION public.getcallcountsbyagency(
+	recordlimit integer)
+    RETURNS TABLE(item character varying, itemcount bigint) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+BEGIN
+    RETURN QUERY
+select
+	agency as item
+	, count(agency) as itemcount
+from 
+	calls
+group by 
+	agency
+order by
+	itemcount desc
+limit 10;
+END;
+$BODY$;
+
+ALTER FUNCTION public.getcallcountsbyagency(integer)
+    OWNER TO pi;
