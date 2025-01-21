@@ -96,18 +96,18 @@ router.get('/getIncidentCountsByDayOfWeek', async (req, res) => {
 
 
 //--- CALLS
-// router.get('/getAllCalls', async (req, res) => {
+router.get('/getAllCalls', async (req, res) => {
 
-//     const recordLimit = req.query.limit || 10
+    const recordLimit = req.query.limit || 10
 
-//     try {
-//         const result = await pool.query('SELECT * FROM getcalls($1)', [recordLimit]);
-//         res.json(result.rows);
-//     } catch (error) {
-//         console.error('Error fetching users:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
+    try {
+        const result = await pool.query('SELECT * FROM getcalls($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 router.get('/getCallCountsByAgency', async (req, res) => {
 
@@ -122,7 +122,31 @@ router.get('/getCallCountsByAgency', async (req, res) => {
     }
 });
 
+router.get('/getCallCountsByIncident', async (req, res) => {
 
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('select * from getcallcountsbyincident($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getCallCountsByHour', async (req, res) => {
+    
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('select * from getcallcountsbyhour($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 export default router;
