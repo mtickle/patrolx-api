@@ -1,0 +1,173 @@
+trafficid uuid
+, belts character varying
+, location character varying
+, race character varying
+, arresttype character varying
+, charge character varying
+, subagency character varying
+, dateofstop character varying
+, color character varying
+, vehicletype character varying
+, accident character varying
+, state character varying
+, violationtype character varying
+, latitude character varying
+, driverstate character varying
+, model character varying
+, personalinjury character varying
+, article character varying
+, description character varying
+, hazmat character varying
+, fatal character varying
+, year character varying
+, propertydamage character varying
+, agency character varying
+, gender character varying
+, drivercity character varying
+, longitude character varying
+, alcohol character varying
+, timeofstop character varying
+, commercialvehicle character varying
+, make character varying
+, workzone character varying
+, dlstate character varying
+, contributedtoaccident character varying
+, commerciallicense character varying
+
+
+
+traffic.trafficid
+, traffic.belts
+, traffic.location
+, traffic.race
+, traffic.arresttype
+, traffic.charge
+, traffic.subagency
+, traffic.dateofstop
+, traffic.color
+, traffic.vehicletype
+, traffic.accident
+, traffic.state
+, traffic.violationtype
+, traffic.latitude
+, traffic.driverstate
+, traffic.model
+, traffic.personalinjury
+, traffic.article
+, traffic.description
+, traffic.hazmat
+, traffic.fatal
+, traffic.year
+, traffic.propertydamage
+, traffic.agency
+, traffic.gender
+, traffic.drivercity
+, traffic.longitude
+, traffic.alcohol
+, traffic.timeofstop
+, traffic.commercialvehicle
+, traffic.make
+, traffic.workzone
+, traffic.dlstate
+, traffic.contributedtoaccident
+, traffic.commerciallicense
+
+
+
+-- FUNCTION: public.gettraffic(integer)
+
+-- DROP FUNCTION IF EXISTS public.gettraffic(integer);
+
+CREATE OR REPLACE FUNCTION public.gettraffic(
+	recordlimit integer)
+    RETURNS TABLE(
+        trafficid uuid character varying
+, belts character varying
+, location character varying
+, race character varying
+, arresttype character varying
+, charge character varying
+, subagency character varying
+, dateofstop character varying
+, color character varying
+, vehicletype character varying
+, accident character varying
+, state character varying
+, violationtype character varying
+, latitude character varying
+, driverstate character varying
+, model character varying
+, personalinjury character varying
+, article character varying
+, description character varying
+, hazmat character varying
+, fatal character varying
+, year character varying
+, propertydamage character varying
+, agency character varying
+, gender character varying
+, drivercity character varying
+, longitude character varying
+, alcohol character varying
+, timeofstop character varying
+, commercialvehicle character varying
+, make character varying
+, workzone character varying
+, dlstate character varying
+, contributedtoaccident character varying
+, commerciallicense character varying
+    ) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+ BEGIN RETURN QUERY
+SELECT 
+	traffic.trafficid
+, traffic.belts
+, traffic.location
+, traffic.race
+, traffic.arresttype
+, traffic.charge
+, traffic.subagency
+, traffic.dateofstop
+, traffic.color
+, traffic.vehicletype
+, traffic.accident
+, traffic.state
+, traffic.violationtype
+, traffic.latitude
+, traffic.driverstate
+, traffic.model
+, traffic.personalinjury
+, traffic.article
+, traffic.description
+, traffic.hazmat
+, traffic.fatal
+, traffic.year
+, traffic.propertydamage
+, traffic.agency
+, traffic.gender
+, traffic.drivercity
+, traffic.longitude
+, traffic.alcohol
+, traffic.timeofstop
+, traffic.commercialvehicle
+, traffic.make
+, traffic.workzone
+, traffic.dlstate
+, traffic.contributedtoaccident
+, traffic.commerciallicense
+FROM 
+	public.traffic
+LIMIT
+    recordLimit;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION public.gettraffic(integer)
+    OWNER TO pi;

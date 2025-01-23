@@ -24,6 +24,8 @@ const pool = new pg.Pool({
     port: process.env.DATABASE_PORT
 });
 
+
+//-------------------------------------------------------------------
 //--- INCIDENTS
 router.get('/getAllIncidents', async (req, res) => {
 
@@ -94,8 +96,19 @@ router.get('/getIncidentCountsByDayOfWeek', async (req, res) => {
 });
 
 
-
+//-------------------------------------------------------------------
 //--- CALLS
+
+router.get("/getCall/:_id", async (req, res) => {
+  try {
+   //const data = await incidentsModel.findById(req.params._id);
+    const result = await pool.query('SELECT * FROM getcall($1)', [req.params._id]);
+    res.json(result.rows);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+  });
+
 router.get('/getAllCalls', async (req, res) => {
 
     const recordLimit = req.query.limit || 10
@@ -148,5 +161,89 @@ router.get('/getCallCountsByHour', async (req, res) => {
     }
 });
 
+router.get('/getCallCountsByDayOfWeek', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('select * from getcallcountsbyday($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+);
+
+
+
+//-------------------------------------------------------------------
+//--- TRAFFIC
+
+router.get('/getAllTraffic', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('SELECT * FROM gettraffic($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getTrafficStopDescriptionCounts', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('select * from gettrafficstopdescriptioncounts($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getTrafficStopGenderCounts', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('select * from gettrafficstopgendercounts($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getTrafficStopMakeCounts', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('select * from gettrafficstopmakecounts($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getTrafficStopRaceCounts', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('select * from gettrafficstopracecounts($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 export default router;
