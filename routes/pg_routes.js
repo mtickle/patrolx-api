@@ -25,8 +25,40 @@ const pool = new pg.Pool({
 });
 
 
-//-------------------------------------------------------------------
 //--- INCIDENTS
+router.post("/postIncident", async (req, res) => {
+
+    console.log(req.body.caseNumber);
+
+const casenumber = req.body.caseNumber;
+const reportedhour = req.body.reportedHour;
+const longitude = req.body.longitude;
+const reportedyear = req.body.reportedYear;
+const reportedmonth = req.body.reportedMonth;
+const latitude = req.body.latitude;
+const crimecode = req.body.crimeCode;
+const incidentid = req.body.incidentID;
+const crimetype = req.body.crimeCode;
+const district = req.body.district;
+const reporteddayofweek = req.body.reportedDayOfWeek;
+const reporteddate = req.body.reportedDate;
+const reportedtime = req.body.reportedTime;
+const reportedday = req.body.reportedDay;
+const updateddate = req.body.updatedDate;
+const crimedescription = req.body.crimeDescription;
+const cityofincident = req.body.cityOfIncident;
+const reportedblockaddress = req.body.reportedBlockAddress;
+
+    try {
+        const result = await pool.query('CALL public.addincident($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)', [incidentid,casenumber,reportedhour,longitude,reportedyear,reportedmonth,latitude,crimecode,crimetype,district,reporteddayofweek,reporteddate,reportedtime,reportedday,updateddate,crimedescription,cityofincident,reportedblockaddress]);
+        // const result = await pool.query('CALL public.addincident($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)', 
+        //     [incidentid,casenumber,reportedhour,longitude,reportedyear,reportedmonth,latitude,crimecode,crimetype,district,reporteddayofweek,reporteddate,reportedtime,reportedday,updateddate,crimedescription,cityofincident,reportedblockaddress]);
+        res.json(result.rows);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 router.get('/getAllIncidents', async (req, res) => {
 
     const recordLimit = req.query.limit || 10
@@ -95,19 +127,16 @@ router.get('/getIncidentCountsByDayOfWeek', async (req, res) => {
     }
 });
 
-
-//-------------------------------------------------------------------
 //--- CALLS
-
 router.get("/getCall/:_id", async (req, res) => {
-  try {
-   //const data = await incidentsModel.findById(req.params._id);
-    const result = await pool.query('SELECT * FROM getcall($1)', [req.params._id]);
-    res.json(result.rows);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-  });
+    try {
+        //const data = await incidentsModel.findById(req.params._id);
+        const result = await pool.query('SELECT * FROM getcall($1)', [req.params._id]);
+        res.json(result.rows);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 router.get('/getAllCalls', async (req, res) => {
 
@@ -149,7 +178,7 @@ router.get('/getCallCountsByIncident', async (req, res) => {
 });
 
 router.get('/getCallCountsByHour', async (req, res) => {
-    
+
     const recordLimit = req.query.limit || 10
 
     try {
@@ -177,10 +206,7 @@ router.get('/getCallCountsByDayOfWeek', async (req, res) => {
 );
 
 
-
-//-------------------------------------------------------------------
 //--- TRAFFIC
-
 router.get('/getAllTraffic', async (req, res) => {
 
     const recordLimit = req.query.limit || 10
