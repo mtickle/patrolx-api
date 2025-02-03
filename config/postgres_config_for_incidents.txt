@@ -177,6 +177,29 @@ END;
 $$;
 
 
+caseNumber := req.body.caseNumber
+reportedHour := req.body.reportedHour
+longitude := req.body.longitude
+reportedYear := req.body.reportedYear
+reportedMonth := req.body.reportedMonth
+latitude := req.body.latitude
+crimeCode := req.body.crimeCode
+incidentID := req.body.incidentID
+crimeType := req.body.crimeCode
+district := req.body.district
+reportedDayOfWeek := req.body.reportedDayOfWeek
+reportedDate := req.body.reportedDate
+reportedTime := req.body.reportedTime
+reportedDay := req.body.reportedDay
+updatedDate := req.body.updatedDate
+crimeDescription := req.body.crimeDescription
+cityOfIncident := req.body.cityOfIncident
+reportedBlockAddress := req.body.reportedBlockAddress
+
+
+incidentid,casenumber,reportedhour,longitude,reportedyear,reportedmonth,latitude,crimecode,crimetype,district,reporteddayofweek,reporteddate,reportedtime,reportedday,updateddate,crimedescription,cityofincident,reportedblockaddress
+
+TO_DATE(reporteddate, 'MM-DD-YYYY'),
 
 
 

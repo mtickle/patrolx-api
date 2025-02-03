@@ -8,7 +8,7 @@ import { incidentsModel } from "../models/incidents.js";
 //--- Helpers
 import dotenv from 'dotenv'
 import auth from "../middlewares/auth.js";
-import { Router } from "express";
+import { query, Router } from "express";
 const router = Router();
 import pg from 'pg';
 import randomstring from "randomstring";
@@ -27,8 +27,6 @@ const pool = new pg.Pool({
 
 //--- INCIDENTS
 router.post("/postIncident", async (req, res) => {
-
-    console.log(req.body.caseNumber);
 
 const casenumber = req.body.caseNumber;
 const reportedhour = req.body.reportedHour;
@@ -49,10 +47,10 @@ const crimedescription = req.body.crimeDescription;
 const cityofincident = req.body.cityOfIncident;
 const reportedblockaddress = req.body.reportedBlockAddress;
 
-    try {
-        const result = await pool.query('CALL public.addincident($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)', [incidentid,casenumber,reportedhour,longitude,reportedyear,reportedmonth,latitude,crimecode,crimetype,district,reporteddayofweek,reporteddate,reportedtime,reportedday,updateddate,crimedescription,cityofincident,reportedblockaddress]);
-        // const result = await pool.query('CALL public.addincident($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)', 
-        //     [incidentid,casenumber,reportedhour,longitude,reportedyear,reportedmonth,latitude,crimecode,crimetype,district,reporteddayofweek,reporteddate,reportedtime,reportedday,updateddate,crimedescription,cityofincident,reportedblockaddress]);
+const query = `CALL public.addincident('${incidentid}','${casenumber}','${reportedhour}','${longitude}','${reportedyear}','${reportedmonth}','${latitude}','${crimecode}','${crimetype}','${district}','${reporteddayofweek}','${reporteddate}','${reportedtime}','${reportedday}','${updateddate}','${crimedescription}','${cityofincident}','${reportedblockaddress}');`;
+
+try {
+        const result = await pool.query(query);
         res.json(result.rows);
     } catch (error) {
         res.status(500).json({ message: error.message });
