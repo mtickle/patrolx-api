@@ -1,3 +1,10 @@
+SELECT * FROM public.incidents order by reporteddate desc;
+
+UPDATE incidents SET updateddate = TO_DATE(updateddate, 'MM-DD-YYYY');
+
+ALTER TABLE incidents ALTER COLUMN updateddate TYPE DATE USING updateddate::DATE; 
+
+
 incidentid
 casenumber
 reportedhour
