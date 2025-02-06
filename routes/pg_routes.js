@@ -28,28 +28,28 @@ const pool = new pg.Pool({
 //--- INCIDENTS
 router.post("/postIncident", async (req, res) => {
 
-const casenumber = req.body.caseNumber;
-const reportedhour = req.body.reportedHour;
-const longitude = req.body.longitude;
-const reportedyear = req.body.reportedYear;
-const reportedmonth = req.body.reportedMonth;
-const latitude = req.body.latitude;
-const crimecode = req.body.crimeCode;
-const incidentid = req.body.incidentID;
-const crimetype = req.body.crimeCode;
-const district = req.body.district;
-const reporteddayofweek = req.body.reportedDayOfWeek;
-const reporteddate = req.body.reportedDate;
-const reportedtime = req.body.reportedTime;
-const reportedday = req.body.reportedDay;
-const updateddate = req.body.updatedDate;
-const crimedescription = req.body.crimeDescription;
-const cityofincident = req.body.cityOfIncident;
-const reportedblockaddress = req.body.reportedBlockAddress;
+    const casenumber = req.body.caseNumber;
+    const reportedhour = req.body.reportedHour;
+    const longitude = req.body.longitude;
+    const reportedyear = req.body.reportedYear;
+    const reportedmonth = req.body.reportedMonth;
+    const latitude = req.body.latitude;
+    const crimecode = req.body.crimeCode;
+    const incidentid = req.body.incidentID;
+    const crimetype = req.body.crimeCode;
+    const district = req.body.district;
+    const reporteddayofweek = req.body.reportedDayOfWeek;
+    const reporteddate = req.body.reportedDate;
+    const reportedtime = req.body.reportedTime;
+    const reportedday = req.body.reportedDay;
+    const updateddate = req.body.updatedDate;
+    const crimedescription = req.body.crimeDescription;
+    const cityofincident = req.body.cityOfIncident;
+    const reportedblockaddress = req.body.reportedBlockAddress;
 
-const query = `CALL public.addincident('${incidentid}','${casenumber}','${reportedhour}','${longitude}','${reportedyear}','${reportedmonth}','${latitude}','${crimecode}','${crimetype}','${district}','${reporteddayofweek}','${reporteddate}','${reportedtime}','${reportedday}','${updateddate}','${crimedescription}','${cityofincident}','${reportedblockaddress}');`;
+    const query = `CALL public.addincident('${incidentid}','${casenumber}','${reportedhour}','${longitude}','${reportedyear}','${reportedmonth}','${latitude}','${crimecode}','${crimetype}','${district}','${reporteddayofweek}','${reporteddate}','${reportedtime}','${reportedday}','${updateddate}','${crimedescription}','${cityofincident}','${reportedblockaddress}');`;
 
-try {
+    try {
         const result = await pool.query(query);
         res.json(result.rows);
     } catch (error) {
@@ -125,10 +125,30 @@ router.get('/getIncidentCountsByDayOfWeek', async (req, res) => {
     }
 });
 
+
 //--- CALLS
+router.post("/postCall", async (req, res) => {
+
+    const agency = req.body.agency;
+    const latitude = req.body.latitude;
+    const longitude = req.body.longitude;
+    const incidentType = req.body.incidentType;
+    const location = req.body.location;
+    const callDate = req.body.callDate;
+    const callTime = req.body.callTime;
+
+    const query = `CALL public.addcall('${agency}','${latitude}','${longitude}','${incidentType}','${location}','${callDate}','${callTime}'`;
+
+    try {
+        const result = await pool.query(query);
+        res.json(result.rows);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 router.get("/getCall/:_id", async (req, res) => {
     try {
-        //const data = await incidentsModel.findById(req.params._id);
         const result = await pool.query('SELECT * FROM getcall($1)', [req.params._id]);
         res.json(result.rows);
     } catch (error) {

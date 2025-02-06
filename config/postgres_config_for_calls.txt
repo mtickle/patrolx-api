@@ -1,3 +1,13 @@
+UPDATE calls SET calldate = TO_DATE(calldate, 'MM-DD-YYYY');
+
+ALTER TABLE calls ALTER COLUMN calldate TYPE DATE USING calldate::DATE; 
+
+
+
+
+
+
+
 -- FUNCTION: public.getcallcountsbyagency(integer)
 
 -- DROP FUNCTION IF EXISTS public.getcallcountsbyagency(integer);
