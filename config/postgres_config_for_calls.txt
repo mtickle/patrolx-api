@@ -38,3 +38,19 @@ $BODY$;
 
 ALTER FUNCTION public.getcallcountsbyagency(integer)
     OWNER TO pi;
+
+
+select agency, incident, calldate, count(*)
+from calls
+group by agency, incident, calldate
+HAVING count(*) > 1
+
+DELETE FROM
+    calls a
+        USING calls b
+WHERE
+    a.agency = b.agency
+    AND a.incident = b.incident
+	AND a.calldate = b.calldate;
+
+DELETE from calls where incident is null

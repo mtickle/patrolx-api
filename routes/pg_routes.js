@@ -3,7 +3,7 @@
 //--- http://localhost:3001/api/getAllCalls?limit=1
 
 //--- Models
-import { incidentsModel } from "../models/incidents.js";
+//import { incidentsModel } from "../models/incidents.js";
 
 //--- Helpers
 import dotenv from 'dotenv'
@@ -21,9 +21,11 @@ const pool = new pg.Pool({
     host: process.env.DATABASE_HOST,
     database: process.env.DATABASE_NAME,
     password: process.env.DATABASE_PASSWORD,
-    port: process.env.DATABASE_PORT
+    port: process.env.DATABASE_PORT,
+    max: 20,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 2000,
 });
-
 
 //--- INCIDENTS
 router.post("/postIncident", async (req, res) => {
@@ -137,11 +139,11 @@ router.post("/postCall", async (req, res) => {
     const callDate = req.body.callDate;
     const callTime = req.body.callTime;
 
-    const query = `CALL public.addcall('${agency}','${latitude}','${longitude}','${incidentType}','${location}','${callDate}','${callTime}'`;
-
+    const query = `CALL public.addcall('${agency}','${latitude}','${longitude}','${incidentType}','${location}','${callDate}','${callTime}')`;
+    
     try {
         const result = await pool.query(query);
-        res.json(result.rows);
+        res.json(result.rowCount);      
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -225,6 +227,53 @@ router.get('/getCallCountsByDayOfWeek', async (req, res) => {
 
 
 //--- TRAFFIC
+router.post("/postTraffic", async (req, res) => {
+
+    const belts =  req.body.belts;
+    const location =  req.body.location;
+    const race =  req.body.race;
+    const arrestType =  req.body.arrestType;
+    const charge =  req.body.charge;
+    const subagency =  req.body.subagency;
+    const dateOfStop =  req.body.dateOfStop;
+    const color =  req.body.color;
+    const vehicleType =  req.body.vehicleType;
+    const accident =  req.body.accident;
+    const state =  req.body.state;
+    const violationType =  req.body.violationType;
+    const latitude =  req.body.latitude;
+    const driverState =  req.body.driverState;
+    const model =  req.body.model;
+    const personalInjury =  req.body.personalInjury;
+    const article =  req.body.article;
+    const description =  req.body.description;
+    const hazmat =  req.body.hazmat;
+    const fatal =  req.body.fatal;
+    const year =  req.body.year;
+    const propertyDamage =  req.body.propertyDamage;
+    const agency =  req.body.agency;
+    const gender =  req.body.gender;
+    const driverCity =  req.body.driverCity;
+    const longitude =  req.body.longitude;
+    const alcohol =  req.body.alcohol;
+    const timeOfStop =  req.body.timeOfStop;
+    const commercialVehicle =  req.body.commercialVehicle;
+    const make =  req.body.make;
+    const workZone =  req.body.workZone;
+    const dlState =  req.body.dlState;
+    const contributedToAccident =  req.body.contributedToAccident;
+    const commercialLicense =  req.body.commercialLicense;
+
+    const query = `CALL public.addtraffic('${belts}','${location}','${race}','${arrestType}','${charge}','${subagency}','${dateOfStop}','${color}','${vehicleType}','${accident}','${state}','${violationType}','${latitude}','${driverState}','${model}','${personalInjury}','${article}','${description}','${hazmat}','${fatal}','${year}','${propertyDamage}','${agency}','${gender}', '${driverCity}','${longitude}','${alcohol}','${timeOfStop}','${commercialVehicle}','${make}','${workZone}','${dlState}','${contributedToAccident}','${commercialLicense}')`;
+
+    try {
+        const result = await pool.query(query);
+        res.json(result.rowCount);      
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 router.get('/getAllTraffic', async (req, res) => {
 
     const recordLimit = req.query.limit || 10

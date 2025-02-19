@@ -1,173 +1,123 @@
-trafficid uuid
-, belts character varying
-, location character varying
-, race character varying
-, arresttype character varying
-, charge character varying
-, subagency character varying
-, dateofstop character varying
-, color character varying
-, vehicletype character varying
-, accident character varying
-, state character varying
-, violationtype character varying
-, latitude character varying
-, driverstate character varying
-, model character varying
-, personalinjury character varying
-, article character varying
-, description character varying
-, hazmat character varying
-, fatal character varying
-, year character varying
-, propertydamage character varying
-, agency character varying
-, gender character varying
-, drivercity character varying
-, longitude character varying
-, alcohol character varying
-, timeofstop character varying
-, commercialvehicle character varying
-, make character varying
-, workzone character varying
-, dlstate character varying
-, contributedtoaccident character varying
-, commerciallicense character varying
+-- PROCEDURE: public.addtraffic(text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text)
 
+-- DROP PROCEDURE IF EXISTS public.addtraffic(text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text);
 
-
-traffic.trafficid
-, traffic.belts
-, traffic.location
-, traffic.race
-, traffic.arresttype
-, traffic.charge
-, traffic.subagency
-, traffic.dateofstop
-, traffic.color
-, traffic.vehicletype
-, traffic.accident
-, traffic.state
-, traffic.violationtype
-, traffic.latitude
-, traffic.driverstate
-, traffic.model
-, traffic.personalinjury
-, traffic.article
-, traffic.description
-, traffic.hazmat
-, traffic.fatal
-, traffic.year
-, traffic.propertydamage
-, traffic.agency
-, traffic.gender
-, traffic.drivercity
-, traffic.longitude
-, traffic.alcohol
-, traffic.timeofstop
-, traffic.commercialvehicle
-, traffic.make
-, traffic.workzone
-, traffic.dlstate
-, traffic.contributedtoaccident
-, traffic.commerciallicense
-
-
-
--- FUNCTION: public.gettraffic(integer)
-
--- DROP FUNCTION IF EXISTS public.gettraffic(integer);
-
-CREATE OR REPLACE FUNCTION public.gettraffic(
-	recordlimit integer)
-    RETURNS TABLE(
-        trafficid uuid character varying
-, belts character varying
-, location character varying
-, race character varying
-, arresttype character varying
-, charge character varying
-, subagency character varying
-, dateofstop character varying
-, color character varying
-, vehicletype character varying
-, accident character varying
-, state character varying
-, violationtype character varying
-, latitude character varying
-, driverstate character varying
-, model character varying
-, personalinjury character varying
-, article character varying
-, description character varying
-, hazmat character varying
-, fatal character varying
-, year character varying
-, propertydamage character varying
-, agency character varying
-, gender character varying
-, drivercity character varying
-, longitude character varying
-, alcohol character varying
-, timeofstop character varying
-, commercialvehicle character varying
-, make character varying
-, workzone character varying
-, dlstate character varying
-, contributedtoaccident character varying
-, commerciallicense character varying
-    ) 
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE PARALLEL UNSAFE
-    ROWS 1000
-
+CREATE OR REPLACE PROCEDURE public.addtraffic(
+	IN p_belts text,
+	IN p_location text,
+	IN p_race text,
+	IN p_arresttype text,
+	IN p_charge text,
+	IN p_subagency text,
+	IN p_dateofstop text,
+	IN p_color text,
+	IN p_vehicletype text,
+	IN p_accident text,
+	IN p_state text,
+	IN p_violationtype text,
+	IN p_latitude text,
+	IN p_driverstate text,
+	IN p_model text,
+	IN p_personalinjury text,
+	IN p_article text,
+	IN p_description text,
+	IN p_hazmat text,
+	IN p_fatal text,
+	IN p_year text,
+	IN p_propertydamage text,
+	IN p_agency text,
+	IN p_gender text,
+	IN p_drivercity text,
+	IN p_longitude text,
+	IN p_alcohol text,
+	IN p_timeofstop text,
+	IN p_commercialvehicle text,
+	IN p_make text,
+	IN p_workzone text,
+	IN p_dlstate text,
+	IN p_contributedtoaccident text,
+	IN p_commerciallicense text)
+LANGUAGE 'plpgsql'
 AS $BODY$
- BEGIN RETURN QUERY
-SELECT 
-	traffic.trafficid
-, traffic.belts
-, traffic.location
-, traffic.race
-, traffic.arresttype
-, traffic.charge
-, traffic.subagency
-, traffic.dateofstop
-, traffic.color
-, traffic.vehicletype
-, traffic.accident
-, traffic.state
-, traffic.violationtype
-, traffic.latitude
-, traffic.driverstate
-, traffic.model
-, traffic.personalinjury
-, traffic.article
-, traffic.description
-, traffic.hazmat
-, traffic.fatal
-, traffic.year
-, traffic.propertydamage
-, traffic.agency
-, traffic.gender
-, traffic.drivercity
-, traffic.longitude
-, traffic.alcohol
-, traffic.timeofstop
-, traffic.commercialvehicle
-, traffic.make
-, traffic.workzone
-, traffic.dlstate
-, traffic.contributedtoaccident
-, traffic.commerciallicense
-FROM 
-	public.traffic
-LIMIT
-    recordLimit;
+BEGIN
+
+INSERT INTO traffic (
+        belts 
+, location 
+, race 
+, arresttype 
+, charge 
+, subagency 
+, dateofstop 
+, color 
+, vehicletype 
+, accident 
+, state 
+, violationtype 
+, latitude 
+, driverstate 
+, model 
+, personalinjury 
+, article 
+, description 
+, hazmat 
+, fatal 
+, year 
+, propertydamage 
+, agency 
+, gender 
+, drivercity 
+, longitude 
+, alcohol 
+, timeofstop 
+, commercialvehicle 
+, make 
+, workzone 
+, dlstate 
+, contributedtoaccident 
+, commerciallicense 
+    ) VALUES (
+  p_belts
+,  p_location
+,  p_race
+,  p_arresttype
+,  p_charge
+,  p_subagency
+,  p_dateofstop
+,  p_color
+,  p_vehicletype
+,  p_accident
+,  p_state
+,  p_violationtype
+,  p_latitude
+,  p_driverstate
+,  p_model
+,  p_personalinjury
+,  p_article
+,  p_description
+,  p_hazmat
+,  p_fatal
+,  p_year
+,  p_propertydamage
+,  p_agency
+,  p_gender
+,  p_drivercity
+,  p_longitude
+,  p_alcohol
+,  p_timeofstop
+,  p_commercialvehicle
+,  p_make
+,  p_workzone
+,  p_dlstate
+,  p_contributedtoaccident
+,  p_commerciallicense
+    )
+ON CONFLICT (dateofstop, location) DO NOTHING;
 
 END;
-
 $BODY$;
-
-ALTER FUNCTION public.gettraffic(integer)
+ALTER PROCEDURE public.addtraffic(text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text)
     OWNER TO pi;
+
+
+frederick rd nb/ gunners branch rd2024-09-18, warning
