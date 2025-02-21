@@ -27,6 +27,37 @@ const pool = new pg.Pool({
     connectionTimeoutMillis: 2000,
 });
 
+//--- WEATHER
+router.post("/postWeather", async (req, res) => {
+    const temperature = req.body.temperature;
+    const feelsLike = req.body.feelsLike;
+    const tempMin = req.body.tempMin;
+    const tempMax = req.body.tempMax;
+    const pressure = req.body.pressure;
+    const humidity = req.body.humidity;
+    const visibility = req.body.visibility;
+    const windSpeed = req.body.windSpeed;
+    const windDeg = req.body.windDeg;
+    const cloudsAll = req.body.cloudsAll;
+    const sunrise = req.body.sunrise;
+    const sunset = req.body.sunset;
+    const skies = req.body.skies;
+    const description = req.body.description;
+    const dt = req.body.dt
+
+    const query = `CALL public.addweather(${temperature}::bigint,${feelsLike}::bigint,${tempMin}::bigint,${tempMax}::bigint,${pressure}::bigint,${humidity}::bigint,${visibility}::bigint,${windSpeed}::bigint,${windDeg}::bigint,${cloudsAll}::bigint,${sunrise}::bigint,${sunset}::bigint,'${skies}','${description}',${dt}::bigint);`
+
+    console.log(query);
+
+    try {
+        const result = await pool.query(query);
+        res.json(result.rows);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+
+});
+
 //--- INCIDENTS
 router.post("/postIncident", async (req, res) => {
 
