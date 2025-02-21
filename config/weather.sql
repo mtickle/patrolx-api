@@ -1,0 +1,19 @@
+SELECT
+    id,
+    temperature,
+    feels_like,
+    temp_min,
+    temp_max,
+    pressure,
+    humidity,
+    visibility,
+    wind_speed,
+    wind_deg,
+    clouds_all,
+    sys_sunrise,
+    sys_sunset,
+    skies,
+    description,
+   TO_TIMESTAMP(dt)
+FROM
+    public.weather;

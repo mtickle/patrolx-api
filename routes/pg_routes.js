@@ -58,6 +58,19 @@ router.post("/postWeather", async (req, res) => {
 
 });
 
+router.get('/getAllWeather', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('SELECT * FROM getweather($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 //--- INCIDENTS
 router.post("/postIncident", async (req, res) => {
 
