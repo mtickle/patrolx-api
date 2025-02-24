@@ -47,8 +47,6 @@ router.post("/postWeather", async (req, res) => {
 
     const query = `CALL public.addweather(${temperature}::bigint,${feelsLike}::bigint,${tempMin}::bigint,${tempMax}::bigint,${pressure}::bigint,${humidity}::bigint,${visibility}::bigint,${windSpeed}::bigint,${windDeg}::bigint,${cloudsAll}::bigint,${sunrise}::bigint,${sunset}::bigint,'${skies}','${description}',${dt}::bigint);`
 
-    console.log(query);
-
     try {
         const result = await pool.query(query);
         res.json(result.rows);
@@ -64,6 +62,32 @@ router.get('/getAllWeather', async (req, res) => {
 
     try {
         const result = await pool.query('SELECT * FROM getweather($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getCurrentWeather', async (req, res) => {
+
+    const recordLimit = req.query.limit || 1
+
+    try {
+        const result = await pool.query('SELECT temperature, feels_like, humidity, description, wind_speed, wind_deg from public.getweather($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getWeatherByHour', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('SELECT * FROM getweatherbyhour($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
