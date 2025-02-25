@@ -132,7 +132,7 @@ router.get('/getAllIncidents', async (req, res) => {
     const recordLimit = req.query.limit || 10
 
     try {
-        const result = await pool.query('SELECT * FROM getincidents($1)', [recordLimit]);
+        const result = await pool.query('SELECT * FROM get_incidents($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -231,7 +231,7 @@ router.get('/getAllCalls', async (req, res) => {
     const recordLimit = req.query.limit || 10
 
     try {
-        const result = await pool.query('SELECT * FROM getcalls($1)', [recordLimit]);
+        const result = await pool.query('SELECT * FROM get_calls($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -347,7 +347,7 @@ router.get('/getAllTraffic', async (req, res) => {
     const recordLimit = req.query.limit || 10
 
     try {
-        const result = await pool.query('SELECT * FROM gettraffic($1)', [recordLimit]);
+        const result = await pool.query('SELECT * FROM get_trafficstops($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);

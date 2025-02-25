@@ -1,6 +1,27 @@
-UPDATE calls SET calldate = TO_DATE(calldate, 'MM-DD-YYYY');
 
-ALTER TABLE calls ALTER COLUMN calldate TYPE DATE USING calldate::DATE; 
+------------------------------------------------------------------------------------
+-- Table: public.calls
+-- DROP TABLE IF EXISTS public.calls;
+
+CREATE TABLE IF NOT EXISTS public.calls
+(
+    call_id uuid DEFAULT gen_random_uuid(),
+    call_agency character varying COLLATE pg_catalog."default",
+    call_latitude numeric,
+    call_longitude numeric,
+    call_type character varying COLLATE pg_catalog."default",
+    call_address character varying COLLATE pg_catalog."default",
+    call_date date,
+    call_time time without time zone,
+    CONSTRAINT const_calls UNIQUE (call_agency, call_type, call_address, call_date, call_time)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.calls
+    OWNER to pi;
+------------------------------------------------------------------------------------
+
 
 
 
