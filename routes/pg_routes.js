@@ -244,7 +244,7 @@ router.get('/getCallCountsByAgency', async (req, res) => {
     const recordLimit = req.query.limit || 10
 
     try {
-        const result = await pool.query('select * from getcallcountsbyagency($1)', [recordLimit]);
+        const result = await pool.query('select * from get_calls_by_agency($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -257,7 +257,7 @@ router.get('/getCallCountsByIncident', async (req, res) => {
     const recordLimit = req.query.limit || 10
 
     try {
-        const result = await pool.query('select * from getcallcountsbyincident($1)', [recordLimit]);
+        const result = await pool.query('select * from get_calls_by_type($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -267,10 +267,10 @@ router.get('/getCallCountsByIncident', async (req, res) => {
 
 router.get('/getCallCountsByHour', async (req, res) => {
 
-    const recordLimit = req.query.limit || 10
+    const recordLimit = req.query.limit || 24
 
     try {
-        const result = await pool.query('select * from getcallcountsbyhour($1)', [recordLimit]);
+        const result = await pool.query('select * from get_calls_by_hour($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -283,7 +283,7 @@ router.get('/getCallCountsByDayOfWeek', async (req, res) => {
     const recordLimit = req.query.limit || 10
 
     try {
-        const result = await pool.query('select * from getcallcountsbyday($1)', [recordLimit]);
+        const result = await pool.query('select * from get_calls_by_day($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
