@@ -145,7 +145,7 @@ router.get('/getIncidentCountsByType', async (req, res) => {
     const recordLimit = req.query.limit || 10
 
     try {
-        const result = await pool.query('select * from getincidentcountsbytype($1)', [recordLimit]);
+        const result = await pool.query('select * from get_incidents_by_type($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -159,7 +159,7 @@ router.get('/getIncidentCountsByHour', async (req, res) => {
     const offset = req.query.offset || 0;
 
     try {
-        const result = await pool.query('select * from getincidentcountsbyhour($1)', [recordLimit]);
+        const result = await pool.query('select * from get_incidents_by_hour($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -169,11 +169,11 @@ router.get('/getIncidentCountsByHour', async (req, res) => {
 
 router.get('/getIncidentCountsByDistrict', async (req, res) => {
 
-    const recordLimit = req.query.limit || 10
+    const recordLimit = req.query.limit || 6
     const offset = req.query.offset || 0;
 
     try {
-        const result = await pool.query('select * from getincidentcountsbydistrict($1)', [recordLimit]);
+        const result = await pool.query('select * from get_incidents_by_district($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -187,7 +187,7 @@ router.get('/getIncidentCountsByDayOfWeek', async (req, res) => {
     const offset = req.query.offset || 0;
 
     try {
-        const result = await pool.query('select * from getincidentcountsbyday($1)', [recordLimit]);
+        const result = await pool.query('select * from get_incidents_by_day($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error fetching users:', error);
