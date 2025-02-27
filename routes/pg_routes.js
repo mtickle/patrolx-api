@@ -117,7 +117,7 @@ router.post("/postIncident", async (req, res) => {
     const cityofincident = req.body.cityOfIncident;
     const reportedblockaddress = req.body.reportedBlockAddress;
 
-    const query = `CALL public.addincident('${incidentid}','${casenumber}','${reportedhour}','${longitude}','${reportedyear}','${reportedmonth}','${latitude}','${crimecode}','${crimetype}','${district}','${reporteddayofweek}','${reporteddate}','${reportedtime}','${reportedday}','${updateddate}','${crimedescription}','${cityofincident}','${reportedblockaddress}');`;
+    const query = `CALL public.add_incident('${incidentid}','${casenumber}','${reportedhour}','${longitude}','${reportedyear}','${reportedmonth}','${latitude}','${crimecode}','${crimetype}','${district}','${reporteddayofweek}','${reporteddate}','${reportedtime}','${reportedday}','${updateddate}','${crimedescription}','${cityofincident}','${reportedblockaddress}');`;
 
     try {
         const result = await pool.query(query);
@@ -332,7 +332,9 @@ router.post("/postTraffic", async (req, res) => {
     const contributedToAccident =  req.body.contributedToAccident;
     const commercialLicense =  req.body.commercialLicense;
 
-    const query = `CALL public.addtraffic('${belts}','${location}','${race}','${arrestType}','${charge}','${subagency}','${dateOfStop}','${color}','${vehicleType}','${accident}','${state}','${violationType}','${latitude}','${driverState}','${model}','${personalInjury}','${article}','${description}','${hazmat}','${fatal}','${year}','${propertyDamage}','${agency}','${gender}', '${driverCity}','${longitude}','${alcohol}','${timeOfStop}','${commercialVehicle}','${make}','${workZone}','${dlState}','${contributedToAccident}','${commercialLicense}')`;
+    const query = `CALL public.add_trafficstop('${belts}','${location}','${race}','${arrestType}','${charge}','${subagency}','${dateOfStop}','${color}','${vehicleType}','${accident}','${state}','${violationType}','${latitude}','${driverState}','${model}','${personalInjury}','${article}','${description}','${hazmat}','${fatal}','${year}','${propertyDamage}','${agency}','${gender}', '${driverCity}','${longitude}','${alcohol}','${timeOfStop}','${commercialVehicle}','${make}','${workZone}','${dlState}','${contributedToAccident}','${commercialLicense}')`;
+
+    console.log(query);
 
     try {
         const result = await pool.query(query);

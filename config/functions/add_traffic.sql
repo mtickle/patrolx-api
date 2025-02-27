@@ -1,0 +1,120 @@
+-- PROCEDURE: public.add_trafficstop(text, text, text, text, text, text, date, text, text, text, text, text, numeric, text, text, text, text, text, text, numeric, text, text, text, text, numeric, text, text, text, text, text, text, text, text)
+
+-- DROP PROCEDURE IF EXISTS public.add_trafficstop(text, text, text, text, text, text, date, text, text, text, text, text, numeric, text, text, text, text, text, text, numeric, text, text, text, text, numeric, text, text, text, text, text, text, text, text);
+
+CREATE OR REPLACE PROCEDURE public.add_trafficstop(
+	IN p_belts text,
+	IN p_location text,
+	IN p_race text,
+	IN p_arresttype text,
+	IN p_charge text,
+	IN p_subagency text,
+	IN p_dateofstop date,
+	IN p_color text,
+	IN p_vehicletype text,
+	IN p_accident text,
+	IN p_driverstate text,
+	IN p_violationtype text,
+	IN p_latitude numeric,
+	IN p_model text,
+	IN p_personalinjury text,
+	IN p_article text,
+	IN p_description text,
+	IN p_hazmat text,
+	IN p_fatal text,
+	IN p_year numeric,
+	IN p_propertydamage text,
+	IN p_agency text,
+	IN p_gender text,
+	IN p_drivercity text,
+	IN p_longitude numeric,
+	IN p_alcohol text,
+	IN p_timeofstop text,
+	IN p_commercialvehicle text,
+	IN p_make text,
+	IN p_workzone text,
+	IN p_dlstate text,
+	IN p_contributedtoaccident text,
+	IN p_commerciallicense text)
+LANGUAGE 'plpgsql'
+AS $BODY$
+ BEGIN
+INSERT INTO
+    trafficstops (
+        traffic_belts,
+        traffic_location,
+        traffic_race,
+        traffic_arresttype,
+        traffic_charge,
+        traffic_subagency,
+        traffic_dateofstop,
+        traffic_color,
+        traffic_vehicletype,
+        traffic_accident,
+        traffic_driverstate,
+        traffic_violationtype,
+        traffic_latitude,
+        traffic_model,
+        traffic_personalinjury,
+        traffic_article,
+        traffic_description,
+        traffic_hazmat,
+        traffic_fatal,
+        traffic_year,
+        traffic_propertydamage,
+        traffic_agency,
+        traffic_gender,
+        traffic_drivercity,
+        traffic_longitude,
+        traffic_alcohol,
+        traffic_timeofstop,
+        traffic_commercialvehicle,
+        traffic_make,
+        traffic_workzone,
+        traffic_dlstate,
+        traffic_contributedtoaccident,
+        traffic_commerciallicense
+    )
+VALUES
+    (
+        p_belts,
+        p_location,
+        p_race,
+        p_arresttype,
+        p_charge,
+        p_subagency,
+        p_dateofstop,
+        p_color,
+        p_vehicletype,
+        p_accident,
+        p_state,
+        p_violationtype,
+        p_latitude,
+        p_driverstate,
+        p_model,
+        p_personalinjury,
+        p_article,
+        p_description,
+        p_hazmat,
+        p_fatal,
+        p_year,
+        p_propertydamage,
+        p_agency,
+        p_gender,
+        p_drivercity,
+        p_longitude,
+        p_alcohol,
+        p_timeofstop,
+        p_commercialvehicle,
+        p_make,
+        p_workzone,
+        p_dlstate,
+        p_contributedtoaccident,
+        p_commerciallicense
+    ) ON CONFLICT (traffic_belts, traffic_location, traffic_race, traffic_arresttype, traffic_charge, traffic_subagency, traffic_dateofstop, traffic_color, traffic_vehicletype, traffic_accident, traffic_driverstate, traffic_violationtype, traffic_latitude, traffic_model, traffic_personalinjury, traffic_article, traffic_description, traffic_hazmat, traffic_fatal, traffic_year, traffic_propertydamage, traffic_agency, traffic_gender, traffic_drivercity, traffic_longitude, traffic_alcohol, traffic_timeofstop, traffic_commercialvehicle, traffic_make, traffic_workzone) DO NOTHING;
+
+END;
+
+$BODY$;
+ALTER PROCEDURE public.add_trafficstop(text, text, text, text, text, text, date, text, text, text, text, text, numeric, text, text, text, text, text, text, numeric, text, text, text, text, numeric, text, text, text, text, text, text, text, text)
+    OWNER TO pi;

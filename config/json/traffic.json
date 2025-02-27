@@ -1,0 +1,74 @@
+{
+  "belts": "Yes",
+  "location": "COLUMBIA PIKE SB/ SPENCERVILLE RD",
+  "race": "BLACK",
+  "arrestType": "R - Unmarked Laser",
+  "charge": "16-101(a1)",
+  "subagency": "Headquarters and Special Operations",
+  "dateOfStop": "2025-02-24",
+  "color": "BLACK",
+  "vehicleType": "02 - Automobile",
+  "accident": "No",
+  "state": "MD",
+  "violationType": "Citation",
+  "latitude": "39.105816",
+  "driverState": "MD",
+  "model": "CAMRY",
+  "personalInjury": "No",
+  "article": "Transportation Article",
+  "description": "DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION",
+  "hazmat": "No",
+  "fatal": "No",
+  "year": "2023",
+  "propertyDamage": "No",
+  "agency": "MCP",
+  "gender": "M",
+  "driverCity": "BELTSVILLE",
+  "longitude": "-76.9323818333333",
+  "alcohol": "No",
+  "timeOfStop": "12:18:00",
+  "commercialVehicle": "No",
+  "make": "TOYT",
+  "workZone": "No",
+  "dlState": "MD",
+  "contributedToAccident": "False",
+  "commercialLicense": "No"
+}
+
+
+CALL public.add_trafficstop(
+  'Yes'::text
+  ,'COLUMBIA PIKE SB/ SPENCERVILLE RD'::text
+  ,'BLACK'::text
+  ,'R - Unmarked Laser'::text
+  ,'16-101(a1)'::text
+  ,'Headquarters and Special Operations'::text
+    ,'2025-02-24'::date
+  ,'BLACK'::text
+  ,'02 - Automobile'::text
+  ,'No'::text
+  ,'MD'::text
+  ,'Citation'::text
+  ,'39.105816'::numeric
+  ,'MD'::text
+  ,'CAMRY'::text
+  ,'No'::text
+  ,'Transportation Article'::text
+  ,'DRIVING MOTOR VEHICLE ON HIGHWAY WITHOUT REQUIRED LICENSE AND AUTHORIZATION'::text
+  ,'No'::text
+  ,'No'::text
+  ,'2023'::numeric
+  ,'No'::text
+  ,'MCP'::text
+  ,'M'::text
+  , 'BELTSVILLE'::text
+  ,'-76.9323818333333'::numeric
+  ,'No'::text
+  ,'12:18:00'::text
+  ,'No'::text
+  ,'TOYT'::text
+  ,'No'::text
+  ,'MD'::text
+  ,'False'::text
+  ,'No'::text
+  )
