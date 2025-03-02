@@ -307,10 +307,10 @@ router.post("/postTraffic", async (req, res) => {
     const color =  req.body.color;
     const vehicleType =  req.body.vehicleType;
     const accident =  req.body.accident;
-    const state =  req.body.state;
+    const driverState =  req.body.state;
     const violationType =  req.body.violationType;
     const latitude =  req.body.latitude;
-    const driverState =  req.body.driverState;
+    //const driverState =  req.body.driverState;
     const model =  req.body.model;
     const personalInjury =  req.body.personalInjury;
     const article =  req.body.article;
@@ -332,7 +332,7 @@ router.post("/postTraffic", async (req, res) => {
     const contributedToAccident =  req.body.contributedToAccident;
     const commercialLicense =  req.body.commercialLicense;
 
-    const query = `CALL public.add_trafficstop('${belts}','${location}','${race}','${arrestType}','${charge}','${subagency}','${dateOfStop}','${color}','${vehicleType}','${accident}','${state}','${violationType}','${latitude}','${driverState}','${model}','${personalInjury}','${article}','${description}','${hazmat}','${fatal}','${year}','${propertyDamage}','${agency}','${gender}', '${driverCity}','${longitude}','${alcohol}','${timeOfStop}','${commercialVehicle}','${make}','${workZone}','${dlState}','${contributedToAccident}','${commercialLicense}')`;
+    const query = `CALL public.add_trafficstop('${belts}'::text,'${location}'::text,'${race}'::text,'${arrestType}'::text,'${charge}'::text,'${subagency}'::text,'${dateOfStop}'::date,'${color}'::text,'${vehicleType}'::text,'${accident}'::text,'${driverState}'::text,'${violationType}'::text,'${latitude}'::numeric,'${model}'::text,'${personalInjury}'::text,'${article}'::text,'${description}'::text,'${hazmat}'::text,'${fatal}'::text,'${year}'::numeric,'${propertyDamage}'::text,'${agency}'::text,'${gender}'::text, '${driverCity}'::text,'${longitude}'::numeric,'${alcohol}'::text,'${timeOfStop}'::time,'${commercialVehicle}'::text,'${make}'::text,'${workZone}'::text,'${dlState}'::text,'${contributedToAccident}'::text,'${commercialLicense}'::text)`;
 
     console.log(query);
 
