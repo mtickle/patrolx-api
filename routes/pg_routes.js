@@ -99,25 +99,19 @@ router.get('/getWeatherByHour', async (req, res) => {
 router.post("/postIncident", async (req, res) => {
 
     const casenumber = req.body.caseNumber;
-    const reportedhour = req.body.reportedHour;
     const longitude = req.body.longitude;
-    const reportedyear = req.body.reportedYear;
-    const reportedmonth = req.body.reportedMonth;
     const latitude = req.body.latitude;
     const crimecode = req.body.crimeCode;
-    const incidentid = req.body.incidentID;
-    const crimetype = req.body.crimeCode;
+    //const incidentid = req.body.incidentID;
+    //const crimetype = req.body.crimeCode;
     const district = req.body.district;
-    const reporteddayofweek = req.body.reportedDayOfWeek;
     const reporteddate = req.body.reportedDate;
     const reportedtime = req.body.reportedTime;
-    const reportedday = req.body.reportedDay;
-    const updateddate = req.body.updatedDate;
     const crimedescription = req.body.crimeDescription;
     const cityofincident = req.body.cityOfIncident;
     const reportedblockaddress = req.body.reportedBlockAddress;
 
-    const query = `CALL public.add_incident('${incidentid}','${casenumber}','${reportedhour}','${longitude}','${reportedyear}','${reportedmonth}','${latitude}','${crimecode}','${crimetype}','${district}','${reporteddayofweek}','${reporteddate}','${reportedtime}','${reportedday}','${updateddate}','${crimedescription}','${cityofincident}','${reportedblockaddress}');`;
+    const query = `CALL public.add_incident('${casenumber}','${longitude}','${latitude}','${crimecode}','${district}','${reporteddate}','${reportedtime}','${crimedescription}','${cityofincident}','${reportedblockaddress}');`;
 
     try {
         const result = await pool.query(query);
@@ -207,8 +201,10 @@ router.post("/postCall", async (req, res) => {
     const callDate = req.body.callDate;
     const callTime = req.body.callTime;
 
-    const query = `CALL public.addcall('${agency}','${latitude}','${longitude}','${incidentType}','${location}','${callDate}','${callTime}')`;
+    const query = `CALL public.add_call('${agency}','${latitude}','${longitude}','${incidentType}','${location}','${callDate}','${callTime}')`;
     
+    console.log(query);
+
     try {
         const result = await pool.query(query);
         res.json(result.rowCount);      
@@ -333,8 +329,6 @@ router.post("/postTraffic", async (req, res) => {
     const commercialLicense =  req.body.commercialLicense;
 
     const query = `CALL public.add_trafficstop('${belts}'::text,'${location}'::text,'${race}'::text,'${arrestType}'::text,'${charge}'::text,'${subagency}'::text,'${dateOfStop}'::date,'${color}'::text,'${vehicleType}'::text,'${accident}'::text,'${driverState}'::text,'${violationType}'::text,'${latitude}'::numeric,'${model}'::text,'${personalInjury}'::text,'${article}'::text,'${description}'::text,'${hazmat}'::text,'${fatal}'::text,'${year}'::numeric,'${propertyDamage}'::text,'${agency}'::text,'${gender}'::text, '${driverCity}'::text,'${longitude}'::numeric,'${alcohol}'::text,'${timeOfStop}'::time,'${commercialVehicle}'::text,'${make}'::text,'${workZone}'::text,'${dlState}'::text,'${contributedToAccident}'::text,'${commercialLicense}'::text)`;
-
-    console.log(query);
 
     try {
         const result = await pool.query(query);
