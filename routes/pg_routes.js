@@ -189,6 +189,69 @@ router.get('/getIncidentCountsByDayOfWeek', async (req, res) => {
     }
 });
 
+//--- CRASHES
+router.post("/postCrash", async (req, res) => {
+
+    const crash_key_crash = req.body.crash_key_crash
+    const crash_date = req.body.crash_date
+    const crash_time = req.body.crash_time
+    const crash_locationRelationToRoad = req.body.crash_locationRelationToRoad
+    const crash_locationInNearIndicator = req.body.crash_locationInNearIndicator
+    const crash_locationCity = req.body.crash_locationCity
+    const crash_locationRoadName = req.body.crash_locationRoadName
+    const crash_locationRampIndicator = req.body.crash_locationRampdicator
+    const crash_locationMilesFromRoad = req.body.crash_locationMilesFromRoad
+    const crash_locationFeetFromRoad = req.body.crash_locationFeetFromRoad
+    const crash_locationDirectionFromRoad = req.body.crash_locationDirectionFromRoad
+    const crash_locationAtFromIndicator = req.body.crash_locationAtFromdicator
+    const crash_locationRoadNameAt = req.body.crash_locationRoadNameAt
+    const crash_locationDirectionToRoad = req.body.crash_locationDirectionToRoad
+    const crash_locationRoadNameTo = req.body.crash_locationRoadNameTo
+    const crash_firstHarmfulEvent = req.body.crash_firstHarmfulEvent
+    const crash_mostHarmfulEvent = req.body.crash_mostHarmfulEvent
+    const crash_roadClassification = req.body.crash_roadClassification
+    const crash_roadFeature = req.body.crash_roadFeature
+    const crash_trafficControlType = req.body.crash_trafficControlType
+    const crash_weatherCondition1 = req.body.crash_weatherCondition1
+    const crash_weatherCondition2 = req.body.crash_weatherCondition2
+    const crash_weatherContributedToCrash = req.body.crash_weatherContributedToCrash
+    const crash_drivers = req.body.crash_drivers
+    const crash_passengers = req.body.crash_passengers
+    const crash_pedestrians = req.body.crash_pedestrians
+    const crash_pedalCyclists = req.body.crash_pedalCyclists
+    const crash_otherPersonType = req.body.crash_otherPersonType
+    const crash_unknownPersonType = req.body.crash_unknownPersonType
+    const crash_killed = req.body.crash_killed
+    const crash_typeAInjury = req.body.crash_typeAInjury
+    const crash_typeBInjury = req.body.crash_typeBInjury
+    const crash_typeCInjury = req.body.crash_typeCInjury
+    const crash_noInjury = req.body.crash_noInjury
+    const crash_injuryUnknown = req.body.crash_injuryUnknown
+    const crash_latitude = req.body.crash_latitude
+    const crash_longitude = req.body.crash_longitude
+
+    const query = `CALL public.add_crash('${crash_key_crash}','${crash_date}','${crash_time}','${crash_locationRelationToRoad}','${crash_locationInNearIndicator}','${crash_locationCity}','${crash_locationRoadName}','${crash_locationRampIndicator}','${crash_locationMilesFromRoad}','${crash_locationFeetFromRoad}','${crash_locationDirectionFromRoad}','${crash_locationAtFromIndicator}','${crash_locationRoadNameAt}','${crash_locationDirectionToRoad}','${crash_locationRoadNameTo}','${crash_firstHarmfulEvent}','${crash_mostHarmfulEvent}','${crash_roadClassification}','${crash_roadFeature}','${crash_trafficControlType}','${crash_weatherCondition1}','${crash_weatherCondition2}','${crash_weatherContributedToCrash}','${crash_drivers}','${crash_passengers}','${crash_pedestrians}','${crash_pedalCyclists}','${crash_otherPersonType}','${crash_unknownPersonType}','${crash_killed}','${crash_typeAInjury}','${crash_typeBInjury}','${crash_typeCInjury}','${crash_noInjury}','${crash_injuryUnknown}','${crash_latitude}','${crash_longitude}')`;
+
+    try {
+        const result = await pool.query(query);
+        res.json(result.rowCount);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.get('/getAllCrashes', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('SELECT * FROM get_crashes($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 //--- CALLS
 router.post("/postCall", async (req, res) => {
@@ -202,12 +265,10 @@ router.post("/postCall", async (req, res) => {
     const callTime = req.body.callTime;
 
     const query = `CALL public.add_call('${agency}','${latitude}','${longitude}','${incidentType}','${location}','${callDate}','${callTime}')`;
-    
-    console.log(query);
 
     try {
         const result = await pool.query(query);
-        res.json(result.rowCount);      
+        res.json(result.rowCount);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -293,46 +354,46 @@ router.get('/getCallCountsByDayOfWeek', async (req, res) => {
 //--- TRAFFIC
 router.post("/postTraffic", async (req, res) => {
 
-    const belts =  req.body.belts;
-    const location =  req.body.location;
-    const race =  req.body.race;
-    const arrestType =  req.body.arrestType;
-    const charge =  req.body.charge;
-    const subagency =  req.body.subagency;
-    const dateOfStop =  req.body.dateOfStop;
-    const color =  req.body.color;
-    const vehicleType =  req.body.vehicleType;
-    const accident =  req.body.accident;
-    const driverState =  req.body.state;
-    const violationType =  req.body.violationType;
-    const latitude =  req.body.latitude;
+    const belts = req.body.belts;
+    const location = req.body.location;
+    const race = req.body.race;
+    const arrestType = req.body.arrestType;
+    const charge = req.body.charge;
+    const subagency = req.body.subagency;
+    const dateOfStop = req.body.dateOfStop;
+    const color = req.body.color;
+    const vehicleType = req.body.vehicleType;
+    const accident = req.body.accident;
+    const driverState = req.body.state;
+    const violationType = req.body.violationType;
+    const latitude = req.body.latitude;
     //const driverState =  req.body.driverState;
-    const model =  req.body.model;
-    const personalInjury =  req.body.personalInjury;
-    const article =  req.body.article;
-    const description =  req.body.description;
-    const hazmat =  req.body.hazmat;
-    const fatal =  req.body.fatal;
-    const year =  req.body.year;
-    const propertyDamage =  req.body.propertyDamage;
-    const agency =  req.body.agency;
-    const gender =  req.body.gender;
-    const driverCity =  req.body.driverCity;
-    const longitude =  req.body.longitude;
-    const alcohol =  req.body.alcohol;
-    const timeOfStop =  req.body.timeOfStop;
-    const commercialVehicle =  req.body.commercialVehicle;
-    const make =  req.body.make;
-    const workZone =  req.body.workZone;
-    const dlState =  req.body.dlState;
-    const contributedToAccident =  req.body.contributedToAccident;
-    const commercialLicense =  req.body.commercialLicense;
+    const model = req.body.model;
+    const personalInjury = req.body.personalInjury;
+    const article = req.body.article;
+    const description = req.body.description;
+    const hazmat = req.body.hazmat;
+    const fatal = req.body.fatal;
+    const year = req.body.year;
+    const propertyDamage = req.body.propertyDamage;
+    const agency = req.body.agency;
+    const gender = req.body.gender;
+    const driverCity = req.body.driverCity;
+    const longitude = req.body.longitude;
+    const alcohol = req.body.alcohol;
+    const timeOfStop = req.body.timeOfStop;
+    const commercialVehicle = req.body.commercialVehicle;
+    const make = req.body.make;
+    const workZone = req.body.workZone;
+    const dlState = req.body.dlState;
+    const contributedToAccident = req.body.contributedToAccident;
+    const commercialLicense = req.body.commercialLicense;
 
     const query = `CALL public.add_trafficstop('${belts}'::text,'${location}'::text,'${race}'::text,'${arrestType}'::text,'${charge}'::text,'${subagency}'::text,'${dateOfStop}'::date,'${color}'::text,'${vehicleType}'::text,'${accident}'::text,'${driverState}'::text,'${violationType}'::text,'${latitude}'::numeric,'${model}'::text,'${personalInjury}'::text,'${article}'::text,'${description}'::text,'${hazmat}'::text,'${fatal}'::text,'${year}'::numeric,'${propertyDamage}'::text,'${agency}'::text,'${gender}'::text, '${driverCity}'::text,'${longitude}'::numeric,'${alcohol}'::text,'${timeOfStop}'::time,'${commercialVehicle}'::text,'${make}'::text,'${workZone}'::text,'${dlState}'::text,'${contributedToAccident}'::text,'${commercialLicense}'::text)`;
 
     try {
         const result = await pool.query(query);
-        res.json(result.rowCount);      
+        res.json(result.rowCount);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
