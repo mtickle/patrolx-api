@@ -253,6 +253,32 @@ router.get('/getAllCrashes', async (req, res) => {
     }
 });
 
+router.get('/getCrashTypeCounts', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('select * from get_crashes_by_type($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+router.get('/getCrashesByLocation', async (req, res) => {
+
+    const recordLimit = req.query.limit || 10
+
+    try {
+        const result = await pool.query('select * from get_crashes_by_location($1)', [recordLimit]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 //--- CALLS
 router.post("/postCall", async (req, res) => {
 
