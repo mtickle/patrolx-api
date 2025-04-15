@@ -11,6 +11,7 @@ import auth from "../middlewares/auth.js";
 import { query, Router } from "express";
 const router = Router();
 import pg from 'pg';
+import fs from 'fs';
 import randomstring from "randomstring";
 
 //--- PostgreSQL configuration
@@ -22,6 +23,10 @@ const pool = new pg.Pool({
     database: process.env.DATABASE_NAME,
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
+    ssl: {
+        rejectUnauthorized: true,
+        ca: fs.readFileSync("ca.pem").toString(),
+      },
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
