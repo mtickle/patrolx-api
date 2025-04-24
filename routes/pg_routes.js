@@ -24,6 +24,7 @@ const pool = new pg.Pool({
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
     ssl: {
+        require: true,
         rejectUnauthorized: true,
         ca: fs.readFileSync("ca.pem").toString(),
       },
@@ -31,6 +32,12 @@ const pool = new pg.Pool({
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
 });
+
+///--- ROAD CONDITIONS
+router.post("/postRoadCondition", async (req, res) => { 
+    const internalid = req.body.internalID;
+
+
 
 //--- WEATHER
 router.post("/postWeather", async (req, res) => {
@@ -322,7 +329,7 @@ router.get('/getAllCalls', async (req, res) => {
         const result = await pool.query('SELECT * FROM get_calls($1)', [recordLimit]);
         res.json(result.rows);
     } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error('Error fetching CALLS:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
