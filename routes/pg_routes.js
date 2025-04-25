@@ -33,9 +33,64 @@ const pool = new pg.Pool({
     connectionTimeoutMillis: 2000,
 });
 
-// ///--- ROAD CONDITIONS
-// router.post("/postRoadCondition", async (req, res) => {
-//     const internalid = req.body.internalID;
+///--- ROAD CONDITIONS
+router.post("/postRoadCondition", async (req, res) => {
+    const internal_id = req.body.internalID;
+    const latitude = req.body.latitude;
+    const longitude = req.body.longitude;
+    const commonname = req.body.commonName;
+    const reason = req.body.reason;
+    const condition_name = req.body.conditionName;
+    const incidenttype = req.body.incidentType;
+    const severity = req.body.severity;
+    const direction = req.body.direction;
+    const location_name = req.body.locationName;
+    const countyid = req.body.countyID;
+    const countyname = req.body.countyName;
+    const city = req.body.city;
+    const start_date = req.body.startDate;
+    const end_date = req.body.endDate;
+    const lastupdate = req.body.lastUpdate;
+    const road = req.body.road;
+    const routeid = req.body.routeID;
+    const isdetour = req.body.isDetour;
+    const detour = req.body.detour;
+    const lanesclosed = req.body.lanesClosed;
+    const lanestotal = req.body.lanesTotal;
+    const weightlimit = req.body.weightLimit;
+    const widthlimit = req.body.widthLimit;
+    const bridgeinvolved = req.body.bridgeInvolved;
+    const inworkzone = req.body.inWorkZone;
+    const fatality = req.body.fatality;
+    const hazardousmaterials = req.body.hazardousMaterials;
+    const commercialvehicle = req.body.commercialVehicle;
+    const overturnedcommercialvehicle = req.body.overturnedCommercialVehicle;
+    const creationdate = req.body.creationDate;
+    const crossstreetprefix = req.body.crossStreetPrefix;
+    const crossstreetnumber = req.body.crossStreetNumber;
+    const crossstreetsuffix = req.body.crossStreetSuffix;
+    const crossstreetcommonname = req.body.crossStreetCommonName;
+    const eventid = req.body.eventID;
+    const event_name = req.body.eventName;
+    const constructiondatetime = req.body.constructionDateTime;
+    const constructioncontactnumber = req.body.constructionContactNumber;
+    const link_name = req.body.linkName;
+    const polyline = req.body.polyline;
+    const createdfromconcurrent = req.body.createdFromConcurrent;
+    const movableconstruction = req.body.movableConstruction;
+    const workzonespeedlimit = req.body.workzoneSpeedLimit;
+    const icmproject = req.body.icmProject;
+
+    const query = `CALL public.addroadcondition('${internal_id}','${latitude}','${longitude}','${commonname}','${reason}','${condition_name}','${incidenttype}','${severity}','${direction}','${location_name}','${countyid}','${countyname}','${city}','${start_date}','${end_date}','${lastupdate}','${road}','${routeid}', '${isdetour}', '${detour}', '${lanesclosed}', '${lanestotal}', '${weightlimit}', '${widthlimit}', '${bridgeinvolved}', '${inworkzone}', '${fatality}', '${hazardousmaterials}', '${commercialvehicle}', '${overturnedcommercialvehicle}', '${creationdate}', '${crossstreetprefix}', '${crossstreetnumber}', '${crossstreetsuffix}', '${crossstreetcommonname}', '${eventid}', '${event_name}', '${constructiondatetime}', '${constructioncontactnumber}', '${link_name}', '${polyline}', ${createdfromconcurrent}, ${movableconstruction}, ${workzonespeedlimit}, ${icmproject});`
+
+    try {
+        const result = await pool.query(query);
+        res.json(result.rows);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+
+});
 
 
     //--- WEATHER
