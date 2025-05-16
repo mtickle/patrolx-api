@@ -34,7 +34,7 @@ const pool = new pg.Pool({
 });
 
 ///--- ROAD CONDITIONS
-router.post("/postRoadCondition", async (req, res) => {
+router.post("/postRoadIncident", async (req, res) => {
     const internal_id = req.body.internalID;
     const latitude = req.body.latitude;
     const longitude = req.body.longitude;
@@ -81,11 +81,14 @@ router.post("/postRoadCondition", async (req, res) => {
     const workzonespeedlimit = req.body.workzoneSpeedLimit;
     const icmproject = req.body.icmProject;
 
-    const query = `CALL public.addroadcondition('${internal_id}','${latitude}','${longitude}','${commonname}','${reason}','${condition_name}','${incidenttype}','${severity}','${direction}','${location_name}','${countyid}','${countyname}','${city}','${start_date}','${end_date}','${lastupdate}','${road}','${routeid}', '${isdetour}', '${detour}', '${lanesclosed}', '${lanestotal}', '${weightlimit}', '${widthlimit}', '${bridgeinvolved}', '${inworkzone}', '${fatality}', '${hazardousmaterials}', '${commercialvehicle}', '${overturnedcommercialvehicle}', '${creationdate}', '${crossstreetprefix}', '${crossstreetnumber}', '${crossstreetsuffix}', '${crossstreetcommonname}', '${eventid}', '${event_name}', '${constructiondatetime}', '${constructioncontactnumber}', '${link_name}', '${polyline}', ${createdfromconcurrent}, ${movableconstruction}, ${workzonespeedlimit}, ${icmproject});`
+    const query = `CALL public.add_roadincident('${internal_id}','${latitude}','${longitude}','${commonname}','${reason}','${condition_name}','${incidenttype}','${severity}','${direction}','${location_name}','${countyid}','${countyname}','${city}','${start_date}','${end_date}','${lastupdate}','${road}','${routeid}', '${isdetour}', '${detour}', '${lanesclosed}', '${lanestotal}', '${weightlimit}', '${widthlimit}', '${bridgeinvolved}', '${inworkzone}', '${fatality}', '${hazardousmaterials}', '${commercialvehicle}', '${overturnedcommercialvehicle}', '${creationdate}', '${crossstreetprefix}', '${crossstreetnumber}', '${crossstreetsuffix}', '${crossstreetcommonname}', '${eventid}', '${event_name}', '${constructiondatetime}', '${constructioncontactnumber}', '${link_name}', '${polyline}', ${createdfromconcurrent}, ${movableconstruction}, ${workzonespeedlimit}, ${icmproject});`
+
+    console.log(query);
 
     try {
         const result = await pool.query(query);
         res.json(result.rows);
+
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
