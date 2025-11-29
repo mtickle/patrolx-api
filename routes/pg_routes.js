@@ -2,17 +2,13 @@
 //---- 9YGxIQziMuYzgMSWmYePfxRWYdeiwLKn is a good API Key
 //--- http://localhost:3001/api/getAllCalls?limit=1
 
-//--- Models
-//import { incidentsModel } from "../models/incidents.js";
-
 //--- Helpers
-import dotenv from 'dotenv'
-import auth from "../middlewares/auth.js";
-import { query, Router } from "express";
-const router = Router();
-import pg from 'pg';
+import dotenv from 'dotenv';
+import { Router } from "express";
 import fs from 'fs';
-import randomstring from "randomstring";
+import pg from 'pg';
+import auth from "../middlewares/auth.js";
+const router = Router();
 
 //--- PostgreSQL configuration
 dotenv.config()
@@ -331,6 +327,124 @@ router.get('/getCrashesByLocation', async (req, res) => {
         console.error('Error fetching users:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+});
+
+
+
+//--- ARRESTS
+router.get("/getAllArrests", auth.checkKey, async (req, res) => {
+    const recordLimit = parseInt(req.query.limit) || 10;
+
+    // SQL: Order by date and time descending, similar to your old Mongo sort
+    const query = `
+        SELECT * FROM public.arrests 
+        ORDER BY date_of_arrest DESC, time_of_arrest DESC 
+        LIMIT $1
+    `;
+
+    try {
+        const { rows } = await pool.query(query, [recordLimit]);
+        res.json(rows);
+    } catch (error) {
+        console.error("Database Error:", error);
+        res.status(500).json({ message: "Error retrieving arrest records." });
+    }
+});
+
+router.post("/postArrest", auth.checkKey, async (req, res) => {
+    // 1. Destructure the incoming JSON (matches the Go struct we built)
+    const {
+        name,
+        ageAtArrest,
+        gender,
+        residence,      // Maps to residence_location
+        employer,
+        dateOfArrest,   // Maps to date_of_arrest
+        timeOfArrest,   // Maps to time_of_arrest
+        arrestLocation, // Maps to arrest_location
+        arrestingOfficer, // Maps to arresting_officer
+        arrestingAgency,  // Maps to arresting_agency
+        charge
+    } = req.body;
+
+    // 2. Prepare the parameterized query
+    // We explicitly cast ageAtArrest to integer to be safe, though Postgres is usually smart enough.
+    const query = `
+        INSERT INTO public.arrests (
+            name, 
+            age_at_arrest, 
+            gender, 
+            residence_location, 
+            employer, 
+            date_of_arrest, 
+            time_of_arrest, 
+            arrest_location, 
+            arresting_officer, 
+            arresting_agency, 
+            charge
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        RETURNING id
+    `;
+
+    const values = [
+        name,
+        parseInt(ageAtArrest) || null, // Handle empty strings or bad data safely
+        gender,
+        residence,
+        employer,
+        dateOfArrest,
+        timeOfArrest,
+        arrestLocation,
+        arrestingOfficer,
+        arrestingAgency,
+        charge
+    ];
+
+    try {
+        const result = await pool.query(query, values);
+        // Return the new ID so the sender knows it worked
+        res.status(201).json({
+            message: "Record created",
+            id: result.rows[0].id
+        });
+    } catch (error) {
+        console.error("Insert Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// --- ARRESTS REPORTING ENDPOINTS ---
+
+router.get('/getArrestAgeCounts', auth.checkKey, async (req, res) => {
+    const limit = parseInt(req.query.limit) || 20;
+    try {
+        const result = await pool.query('SELECT * FROM get_arrest_age_counts($1)', [limit]);
+        res.json(result.rows);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+router.get('/getArrestAgencyCounts', auth.checkKey, async (req, res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    try {
+        const result = await pool.query('SELECT * FROM get_arrest_agency_counts($1)', [limit]);
+        res.json(result.rows);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+router.get('/getArrestChargeCounts', auth.checkKey, async (req, res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    try {
+        const result = await pool.query('SELECT * FROM get_arrest_charge_counts($1)', [limit]);
+        res.json(result.rows);
+    } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+router.get('/getArrestOfficerCounts', auth.checkKey, async (req, res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    try {
+        const result = await pool.query('SELECT * FROM get_arrest_officer_counts($1)', [limit]);
+        res.json(result.rows);
+    } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 //--- CALLS
