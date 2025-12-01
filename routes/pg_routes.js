@@ -333,6 +333,7 @@ router.get('/getCrashesByLocation', async (req, res) => {
 
 //--- ARRESTS
 router.get("/getAllArrests", auth.checkKey, async (req, res) => {
+
     const recordLimit = parseInt(req.query.limit) || 10;
 
     // SQL: Order by date and time descending, similar to your old Mongo sort
