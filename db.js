@@ -30,7 +30,7 @@ export const pool = new pg.Pool({
         // Use the reliably found absolute path
         ca: fs.readFileSync(caCertPath).toString(),
     },
-    max: 20,
+    max: 2,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 10000,
 });
