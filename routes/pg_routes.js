@@ -64,6 +64,41 @@ router.post("/postRoadIncident", async (req, res) => {
 
 });
 
+router.get('/getCameras', async (req, res) => {
+    // 1. Get coordinates from the request query
+    const { lat, lng, limit = 10 } = req.query;
+
+    // Validate input
+    if (!lat || !lng) {
+        return res.status(400).json({ error: "Latitude and Longitude are required" });
+    }
+
+    try {
+        // 2. Query DB: Sort by distance (squared Euclidean distance is enough for sorting)
+        // We calculate (lat_diff^2 + lon_diff^2) and order by it.
+        const queryText = `
+            SELECT 
+                id, 
+                name, 
+                latitude, 
+                longitude, 
+                image_url,
+                ((latitude - $1)^2 + (longitude - $2)^2) as distance_proxy
+            FROM public.traffic_cameras
+            WHERE latitude IS NOT NULL AND longitude IS NOT NULL
+            ORDER BY distance_proxy ASC
+            LIMIT $3;
+        `;
+
+        const result = await pool.query(queryText, [lat, lng, limit]);
+
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error in /getCameras:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 router.get('/getAllRoadIncidents', async (req, res) => {
 
     const recordLimit = req.query.limit || 10
